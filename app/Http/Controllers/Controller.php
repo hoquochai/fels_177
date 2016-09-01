@@ -21,7 +21,7 @@ class Controller extends BaseController
     public function __construct($navName = null)
     {
         if (is_null($navName)) {
-            $this->navName = config('common.user.menu.default_menu');
+            $this->navName = config('common.menu.default_menu');
         } else {
             $this->navName = $navName;
         }

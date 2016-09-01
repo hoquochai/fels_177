@@ -18,8 +18,7 @@
             <th>{{ trans('user/names.label.user_name') }}</th>
             <th>{{ trans('user/names.label.user_email') }}</th>
             <th>{{ trans('user/names.label.user_avatar') }}</th>
-            <th>{{ trans('user/names.label.action_table_head') }}</th>
-            <th>{{ trans('user/names.label.action_delete_table_head') }}</th>
+            <th>{{ trans('names.action_table_head') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -33,22 +32,20 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a href="{{ route('user.show', ['id' =>$user->id]) }}">
+                        {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
+                        <a href="{{ route('user.show', ['id' => $user->id]) }}">
                             <button type="button" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-user"></span> {{ trans('user/names.button.button_detail') }}
+                                <span class="glyphicon glyphicon-user"></span> {{ trans('names.button.button_detail') }}
                             </button>
                         </a>
                         <a href="{{ route('user.edit', ['id' => $user->id]) }}">
                             <button type="button" class="btn btn-warning btn-xs">
-                                <span class="glyphicon glyphicon-pencil"></span> {{ trans('user/names.button.button_update') }}
+                                <span class="glyphicon glyphicon-pencil"></span> {{ trans('names.button.button_update') }}
                             </button>
                         </a>
+                        {{ Form::button('<span class="glyphicon glyphicon-remove"></span> ' . trans('names.button.button_delete'), ['type' => 'submit', 'class' => 'btn btn-danger btn-xs delete']) }}
+                        {{ Form::close() }}
                     </div>
-                </td>
-                <td>
-                    {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
-                    {{ Form::button('<span class="glyphicon glyphicon-remove"></span> ' . trans('user/names.button.button_delete'), ['type' => 'submit', 'class' => 'btn btn-danger btn-xs delete']) }}
-                    {{ Form::close() }}
                 </td>
             </tr>
         @endforeach

@@ -27,7 +27,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->paginate(config('common.pagination.default_number_record'));
+        $numberRecord = config('common.user.pagination.default_number_record');
+        $sortStyle = config('common.sort.sort_descending');
+        $users = User::orderBy('id', $sortStyle)->paginate($numberRecord);
         return view('admin.user.list', compact('users'));
     }
 
@@ -45,21 +47,23 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param UserCreateRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserCreateRequest $request)
     {
+        $config = config('common.user.path');
         if ($request->hasFile('avatar')) {
             $avatar = $request->avatar;
             $fileName = uniqid() . $avatar->getClientOriginalName();
             try {
-                $avatar->move(public_path() . config('common.user.path.avatar_url'), $fileName);
+                $avatar->move(public_path() . $config['avatar_url'], $fileName);
             } catch (Exception $e) {
                 $message = trans('user/validations.admin.avatar.move');
                 return redirect()->route('user.create')->with('message', $message);
             }
         } else {
-            $fileName = config('common.user.path.default_name_avatar');
+            $fileName = $config['default_name_avatar'];
         }
 
         $input = $request->only('name', 'email', 'password');
@@ -72,23 +76,39 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return view('admin.user.detail', compact('user'));
+        $user = User::findOrFail($id);
+        if ($user) {
+            return view('admin.user.detail', compact('user'));
+        } else {
+            $message = trans('user/messages.errors.user_not_exist');
+            return redirect()->route('user.index')->with('message', $message);
+        }
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $user
+     * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('admin.user.edit', compact('user'));
+        $user = User::findOrFail($id);
+        if ($user) {
+            return view('admin.user.edit', compact('user'));
+        } else {
+            $message = trans('user/messages.errors.user_not_exist');
+            return redirect()->route('user.index')->with('message', $message);
+        }
+
     }
 
     /**
@@ -96,30 +116,31 @@ class UserController extends Controller
      *
      * @param  UserEditRequest $request
      * @param  $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserEditRequest $request, $id)
     {
         $user = User::findOrFail($id);
         if ($user) {
+            $pathAvatar = config('common.user.path.avatar_url');
+            $uploadFail = trans('category/messages.errors.image_upload_failed');
             if ($request->hasFile('avatar')) {
-                $oldAvatar = public_path() . config('common.user.path.avatar_url') . $user->avatar;
+                $oldAvatar = public_path() . $pathAvatar . $user->avatar;
                 if (File::exists($oldAvatar)) {
                     try {
                         unlink($oldAvatar);
                     } catch (Exception $e) {
-                        $message = trans('user/validations.admin.avatar.delete');
-                        return redirect()->route('user.edit', ['id' => $id])->with('message', $message);
+                        return redirect()->route('user.edit', ['id' => $id])->with('message', $uploadFail);
                     }
                 }
 
                 $avatar = $request->avatar;
                 $fileName = uniqid() . $avatar->getClientOriginalName();
                 try {
-                    $avatar->move(public_path() . config('common.user.path.avatar_url'), $fileName);
+                    $avatar->move(public_path() . $pathAvatar, $fileName);
                 } catch (Exception $e) {
-                    $message = trans('user/validations.admin.avatar.move');
-                    return redirect()->route('user.edit', ['id' => $id])->with('message', $message);
+                    return redirect()->route('user.edit', ['id' => $id])->with('message', $uploadFail);
                 }
             } else {
                 $fileName = $user->avatar;
@@ -130,7 +151,7 @@ class UserController extends Controller
             $user->update($input);
             $message = trans('user/messages.success.update_user_success');
         } else {
-            $message = trans('user/messages.errors.update_user_success');
+            $message = trans('user/messages.errors.update_user_fail');
         }
 
         return redirect()->route('user.index')->with('message', $message);
