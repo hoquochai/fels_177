@@ -19,8 +19,6 @@ return [
             'file' => 'This avatar not uploaded on server. Please upload again!',
             'image' => 'File is not image(.jpeg, .png, .bmp, .gif, or .svg).Please upload again!',
             'max' => 'Size of avatar is maximum 2MB',
-            'move' => 'File did not upload: ',
-            'delete' => 'File not deleted: ',
         ],
     ],
 ];

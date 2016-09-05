@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#listAllUser').DataTable({
+    $('#listAllUser, #listAllCategory').DataTable({
         "bPaginate" : false,
         "bInfo": false,
         "bFilter" : false,

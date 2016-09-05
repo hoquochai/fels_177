@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ trans('user/names.description_header') }}">
+    <meta name="description" content="{{ trans('names.description_header') }}">
     <meta name="author" content="Ho Quoc Hai">
     <meta name="trainer" content="Nguyen Van Vuong">
     <meta name="trainer" content="Pham Van Doanh">
@@ -25,49 +25,74 @@
 </head>
 <body>
 
-<!-- Menu -->
-<div class="row">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">{{ trans('user/names.project') }}</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="{{ $navName === 'home' ? "active" : null }}"><a
-                            href="#">{{ trans('user/names.nav_menu.home_menu') }}</a></li>
-                <li class="{{ $navName === 'user' ? "active" : null }}"><a
-                            href="{{ route('user.index')}}">{{ trans('user/names.nav_menu.user_menu') }}</a></li>
-                <li class="{{ $navName === 'category' ? "active" : null }}"><a
-                            href="#">{{ trans('user/names.nav_menu.category_menu') }}</a></li>
-                <li class="{{ $navName === 'word' ? "active" : null }}"><a
-                            href="#">{{ trans('user/names.nav_menu.word_menu') }}</a></li>
-                <li class="{{ $navName === 'lesson' ? "active" : null }}"><a
-                            href="#">{{ trans('user/names.nav_menu.lesson_menu') }}</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span
-                                class="glyphicon glyphicon-user"></span> {{ trans('user/names.nav_menu.admin_menu') }}
-                    </a></li>
-                <li><a href="#"><span
-                                class="glyphicon glyphicon-log-out"></span> {{ trans('user/names.nav_menu.logout_menu') }}
-                    </a></li>
-            </ul>
-        </div>
-    </nav>
+<!--Header -->
+<div class="row" id="header">
+    <h1><img src="{{ asset(config('common.system_path') . config('common.system_images.logo')) }}" width="50px" height="50px"> {{ trans('names.header_admin_page') }}</h1>
 </div>
+<div class="row">
 
-<!-- Content -->
-<div class="row" id="content">
-    <div class="col-lg-10 col-lg-offset-1 panel panel-primary">
-        <div class="panel-heading">
-            <h2>@yield('head')</h2>
-        </div>
-        <div class="panel-body">
-            @yield('content')
+    <!-- Menu -->
+    <div class="col-lg-2">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid" id="menu">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ asset('admin') }}">{{ trans('names.project') }}</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="{{ $navName === 'home' ? "active" : null }}">
+                        <a href="{{ asset('admin') }}">{{ trans('names.nav_menu_admin.home_menu') }}</a>
+                    </li>
+                    <li class="{{ $navName === 'user' ? "active" : null }}">
+                        <a href="{{ route('user.index') }}">{{ trans('names.nav_menu_admin.user_menu') }}</a>
+                    </li>
+                    <li class="{{ $navName === 'category' ? "active" : null }}">
+                        <a href="{{ route('category.index') }}">{{ trans('names.nav_menu_admin.category_menu') }}</a>
+                    </li>
+                    <li class="{{ $navName === 'word' ? "active" : null }}">
+                        <a href="{{ route('word.index') }}">{{ trans('names.nav_menu_admin.word_menu') }}</a>
+                    </li>
+                    <li class="{{ $navName === 'word_answer' ? "active" : null }}">
+                        <a href="{{ route('word_answer.index') }}">{{ trans('names.nav_menu_admin.word_answer_menu') }}</a>
+                    </li>
+                    <li class="{{ $navName === 'lesson' ? "active" : null }}">
+                        <a href="{{ route('lesson.index') }}">{{ trans('names.nav_menu_admin.lesson_menu') }}</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{{ asset('admin/profile') }}">
+                            <span class="glyphicon glyphicon-user"></span> {{ trans('names.nav_menu_admin.admin_menu') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ asset('admin/logout') }}">
+                            <span class="glyphicon glyphicon-log-out"></span> {{ trans('names.nav_menu_admin.logout_menu') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Content -->
+    <div class="col-lg-10">
+        <div class="row" id="content">
+            <div class="col-lg-10 col-lg-offset-1 panel panel-primary">
+                <div class="panel-heading">
+                    <h2>@yield('head')</h2>
+                </div>
+                <div class="panel-body">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
+    <!-- Footer -->
+    <div class="row" id="footer">
+        Copyright @ 2016
+    </div>
+</div>
 <!-- jQuery -->
 <script src="{{ asset('/bower/jquery/dist/jquery.min.js') }}"></script>
 
