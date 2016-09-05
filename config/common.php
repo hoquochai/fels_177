@@ -45,4 +45,12 @@ return [
             'category_introduction_length' => 100,
         ],
     ],
+    'word' => [
+        'pagination' => [
+            'default_number_record_word' => 20,
+        ],
+        'length' => [
+            'word_content_length' => 255,
+        ],
+    ],
 ];

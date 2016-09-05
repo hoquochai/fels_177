@@ -7,6 +7,9 @@ return [
         'category_not_exist' => 'Category not found. Please refresh page!',
         'image_upload_failed' => 'Image can not uploaded. Please try again!',
     ],
+    'warning' => [
+        'list_categories_not_found' => 'Can\'t found any category in database. Please add a new category!',
+    ],
     'success' => [
         'update_category_success' => 'Category UPDATED  success!',
         'delete_category_success' => 'Category DELETED  success!',

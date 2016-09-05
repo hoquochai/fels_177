@@ -13,6 +13,7 @@ return [
         'word_answer_menu' => 'Word Answer',
         'lesson_menu' => 'Lesson',
         'admin_menu' => 'Admin',
+        'profile_menu' => 'Profile',
         'logout_menu' => 'Logout',
     ],
     'button' => [

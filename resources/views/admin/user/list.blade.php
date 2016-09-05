@@ -7,9 +7,15 @@
 @endsection
 @section('content')
     @include('admin.message')
+    @if ($users->count() == 0)
+        <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span class="glyphicon glyphicon-warning-sign"></span> {{ trans('user/messages.warning.list_users_not_found') }}</br>
+        </div>
+    @endif
     <a href="{{ route('user.create') }}">
         <button type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-user"></span> {{ trans('user/names.button.button_add') }}
+            <span class="glyphicon glyphicon-user"></span> {{ trans('names.button.button_add') }}
         </button>
     </a>
     <table class="table table-hover table-bordered table-responsive dataTable" id="listAllUser">
@@ -51,12 +57,13 @@
         @endforeach
         </tbody>
     </table>
-
-    <div class="row">
-        <div class="dataTables_info"
-             id="sample_1_info">{{ trans('user/names.pagination.detail_pagination') . ' ' . $users->total() . ' ' . trans('user/names.pagination.entries_pagination') }}</div>
-        <div class="pagination pagination-lg">
-            {{ $users->render() }}
+    @if ($users->count())
+        <div class="row">
+            <div class="dataTables_info"
+                 id="sample_1_info">{{ trans('user/names.pagination.detail_pagination') . ' ' . $users->total() . ' ' . trans('user/names.pagination.entries_pagination') }}</div>
+            <div class="pagination pagination-lg">
+                {{ $users->render() }}
+            </div>
         </div>
-    </div>
+    @endif
 @endsection

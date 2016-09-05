@@ -59,7 +59,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <li class="{{ $navName === 'profile' ? "active" : null }}">
                         <a href="{{ asset('admin/profile') }}">
                             <span class="glyphicon glyphicon-user"></span> {{ trans('names.nav_menu_admin.admin_menu') }}
                         </a>
