@@ -59,8 +59,9 @@
     </table>
     @if ($users->count())
         <div class="row">
-            <div class="dataTables_info"
-                 id="sample_1_info">{{ trans('user/names.pagination.detail_pagination') . ' ' . $users->total() . ' ' . trans('user/names.pagination.entries_pagination') }}</div>
+            <div class="dataTables_info" id="sample_1_info">
+                {{ trans_choice('names.paginations', $users->total(), ['start' => $users->firstItem(), 'finish' => $users->lastItem(), 'numberOfRecords' => $users->total()]) }}
+            </div>
             <div class="pagination pagination-lg">
                 {{ $users->render() }}
             </div>

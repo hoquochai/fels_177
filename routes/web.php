@@ -11,5 +11,4 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('category', 'Admin\CategoryController');
     Route::resource('word', 'Admin\WordController');
     Route::resource('word_answer', 'Admin\WordAnswerController');
-    Route::resource('lesson', 'Admin\LessonController');
 });

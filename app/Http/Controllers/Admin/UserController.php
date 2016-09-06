@@ -7,6 +7,8 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Models\User;
 use File;
+use DB;
+use Exception;
 
 class UserController extends Controller
 {
@@ -29,7 +31,8 @@ class UserController extends Controller
     {
         $numberRecord = config('common.user.pagination.default_number_record');
         $sortStyle = config('common.sort.sort_descending');
-        $users = User::orderBy('id', $sortStyle)->paginate($numberRecord);
+        $isUser = config('roles.user');
+        $users = User::where('roles', $isUser)->orderBy('id', $sortStyle)->paginate($numberRecord);
         return view('admin.user.list', compact('users'));
     }
 
@@ -111,10 +114,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $pathAvatar = config('common.user.path.avatar_url');
-        $uploadFail = trans('category/messages.errors.image_upload_failed');
+        $uploadFail = trans('user/messages.errors.avatar_upload_failed');
+        $avatarDefault = config('common.user.path.default_name_avatar');
         if ($request->hasFile('avatar')) {
             $oldAvatar = public_path() . $pathAvatar . $user->avatar;
-            if (File::exists($oldAvatar)) {
+            if ($user->avatar != $avatarDefault && File::exists($oldAvatar)) {
                 try {
                     unlink($oldAvatar);
                 } catch (Exception $e) {
@@ -152,6 +156,19 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         try {
             DB::beginTransaction();
+            $pathAvatar = config('common.user.path.avatar_url');
+            $avatarDefault = config('common.user.path.default_name_avatar');
+            $fileName = public_path() . $pathAvatar . $user->avatar;
+            if ($user->avatar !=  $avatarDefault && File::exists($fileName)) {
+                try {
+                    unlink($fileName);
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    $message = trans('user/messages.errors.delete_user_fail');
+                    return redirect()->route('user.index')->with('message', $message);
+                }
+            }
+
             $user->lessonResults()->delete();
             $user->userWords()->delete();
             $user->delete();

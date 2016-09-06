@@ -54,9 +54,6 @@
                     <li class="{{ $navName === 'word_answer' ? "active" : null }}">
                         <a href="{{ route('word_answer.index') }}">{{ trans('names.nav_menu_admin.word_answer_menu') }}</a>
                     </li>
-                    <li class="{{ $navName === 'lesson' ? "active" : null }}">
-                        <a href="{{ route('lesson.index') }}">{{ trans('names.nav_menu_admin.lesson_menu') }}</a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="{{ $navName === 'profile' ? "active" : null }}">

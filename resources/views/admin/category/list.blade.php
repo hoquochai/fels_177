@@ -59,10 +59,11 @@
     </table>
     @if ($categories->count())
         <div class="row">
-            <div class="dataTables_info"
-                 id="sample_1_info">{{ trans('category/names.pagination.detail_pagination') . ' ' . $categories->total() . ' ' . trans('category/names.pagination.entries_pagination') }}</div>
+            <div class="dataTables_info"  id="sample_1_info">
+                {{ trans_choice('names.paginations', $categories->total(), ['start' => $categories->firstItem(), 'finish' => $categories->lastItem(), 'numberOfRecords' => $categories->total()]) }}
+            </div>
             <div class="pagination pagination-lg">
-                {{ $categories->render() }}
+                {{ $categories->links() }}
             </div>
         </div>
     @endif

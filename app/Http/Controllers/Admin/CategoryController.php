@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use File;
-use Mockery\CountValidator\Exception;
+use DB;
+use Exception;
 
 class CategoryController extends Controller
 {
@@ -113,7 +114,7 @@ class CategoryController extends Controller
         $uploadFail = trans('category/messages.errors.image_upload_failed');
         if ($request->hasFile('image')) {
             $imageOld = public_path() . $pathImage . $category->image;
-            if (File::exists($imageOld)) {
+            if ($category->image != config('common.category.path.default_name_image') && File::exists($imageOld)) {
                 try {
                     unlink($imageOld);
                 } catch (Exception $e) {
@@ -151,6 +152,19 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         try {
             DB::beginTransaction();
+            $pathImage = config('common.category.path.image_url');
+            $imageDefault = config('common.category.path.default_name_image');
+            $fileName = public_path() . $pathImage . $category->image;
+            if ($category->image != $imageDefault && File::exists($fileName)) {
+                try {
+                    unlink($fileName);
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    $message = trans('category/messages.errors.delete_category_fail');
+                    return redirect()->route('user.index')->with('message', $message);
+                }
+            }
+
             $category->lessons()->delete();
             $category->words()->delete();
             $category->delete();

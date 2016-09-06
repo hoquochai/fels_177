@@ -54,8 +54,9 @@
     </table>
     @if ($words->count())
         <div class="row">
-            <div class="dataTables_info"
-                 id="sample_1_info">{{ trans('word/names.pagination.detail_pagination') . ' ' . $words->total() . ' ' . trans('word/names.pagination.entries_pagination') }}</div>
+            <div class="dataTables_info" id="sample_1_info">
+                {{ trans_choice('names.paginations', $words->total(), ['start' => $words->firstItem(), 'finish' => $words->lastItem(), 'numberOfRecords' => $words->total()]) }}
+            </div>
             <div class="pagination pagination-lg">
                 {{ $words->render() }}
             </div>

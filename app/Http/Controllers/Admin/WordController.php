@@ -6,7 +6,8 @@ use App\Models\Category;
 use App\Models\Word;
 use App\Http\Requests\WordRequest;
 use App\Http\Controllers\Controller;
-use Mockery\CountValidator\Exception;
+use DB;
+use Exception;
 
 class WordController extends Controller
 {
