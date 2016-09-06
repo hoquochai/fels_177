@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use File;
+use Mockery\CountValidator\Exception;
 
 class CategoryController extends Controller
 {
@@ -54,7 +55,7 @@ class CategoryController extends Controller
         $config = config('common.category.path');
         if ($request->hasFile('image')) {
             $image = $request->image;
-            $fileName = uniqid() . $image->getClientOriginalName();
+            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
             try {
                 $image->move(public_path() . $config['image_url'], $fileName);
             } catch (Exception $e) {
@@ -81,13 +82,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
-        if ($category) {
-            return view('admin.category.detail', compact('category'));
-        } else {
-            $message = trans('category/messages.errors.category_not_exist');
-            return redirect()->route('category.index')->with('message', $message);
-        }
-
+        return view('admin.category.detail', compact('category'));
     }
 
     /**
@@ -100,13 +95,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        if ($category) {
-            return view('admin.category.edit', compact('category'));
-        } else {
-            $message = trans('category/messages.errors.category_not_exist');
-            return redirect()->route('category.index')->with('message', $message);
-        }
-
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -120,38 +109,33 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
-        if ($category) {
-            $pathImage = config('common.category.path.image_url');
-            $uploadFail = trans('category/messages.errors.image_upload_failed');
-            if ($request->hasFile('image')) {
-                $imageOld = public_path() . $pathImage . $category->image;
-                if (File::exists($imageOld)) {
-                    try {
-                        unlink($imageOld);
-                    } catch (Exception $e) {
-                        return redirect()->route('category.edit', ['id' => $id])->with('message', $uploadFail);
-                    }
-                }
-
-                $image = $request->image;
-                $fileName = uniqid() . $image->getClientOriginalName();
+        $pathImage = config('common.category.path.image_url');
+        $uploadFail = trans('category/messages.errors.image_upload_failed');
+        if ($request->hasFile('image')) {
+            $imageOld = public_path() . $pathImage . $category->image;
+            if (File::exists($imageOld)) {
                 try {
-                    $image->move(public_path() . $pathImage, $fileName);
+                    unlink($imageOld);
                 } catch (Exception $e) {
                     return redirect()->route('category.edit', ['id' => $id])->with('message', $uploadFail);
                 }
-            } else {
-                $fileName = $category->image;
             }
 
-            $input = $request->only('name', 'introduction');
-            $input['image'] = $fileName;
-            $category->update($input);
-            $message = trans('category/messages.success.update_category_success');
+            $image = $request->image;
+            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+            try {
+                $image->move(public_path() . $pathImage, $fileName);
+            } catch (Exception $e) {
+                return redirect()->route('category.edit', ['id' => $id])->with('message', $uploadFail);
+            }
         } else {
-            $message = trans('category/messages.errors.update_category_fail');
+            $fileName = $category->image;
         }
 
+        $input = $request->only('name', 'introduction');
+        $input['image'] = $fileName;
+        $category->update($input);
+        $message = trans('category/messages.success.update_category_success');
         return redirect()->route('category.index')->with('message', $message);
     }
 
@@ -165,10 +149,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        if ($category) {
+        try {
+            DB::beginTransaction();
+            $category->lessons()->delete();
+            $category->words()->delete();
             $category->delete();
+            DB::commit();
             $message = trans('category/messages.success.delete_category_success');
-        } else {
+        } catch (Exception $ex) {
+            DB::rollBack();
             $message = trans('category/messages.errors.delete_category_fail');
         }
 
