@@ -21,8 +21,4 @@ return [
         'category_placeholder' => 'Please choose category of word',
         'word_content_placeholder' => 'Please enter content of word',
     ],
-    'pagination' => [
-        'detail_pagination' => 'Showing 1 to 20 of',
-        'entries_pagination' => 'entries',
-    ],
 ];

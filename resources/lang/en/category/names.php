@@ -26,8 +26,4 @@ return [
         'category_name_placeholder' => 'Please enter name of category',
         'category_introduction_placeholder' => 'Please enter introduction of category',
     ],
-    'pagination' => [
-        'detail_pagination' => 'Showing 1 to 5 of',
-        'entries_pagination' => 'entries',
-    ],
 ];

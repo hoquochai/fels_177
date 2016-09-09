@@ -30,9 +30,4 @@ return [
         'user_email_placeholder' => 'Please enter email of user',
         'user_password_placeholder' => 'Please enter password of user',
     ],
-
-    'pagination' => [
-        'detail_pagination' => 'Showing 1 to 10 of',
-        'entries_pagination' => 'entries',
-    ],
 ];

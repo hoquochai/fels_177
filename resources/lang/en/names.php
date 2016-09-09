@@ -29,4 +29,7 @@ return [
         'delete_at_time' => 'Deleted at',
     ],
     'action_table_head' => 'Action',
+    'login_heading_panel' => 'Login',
+    'login_fail' => 'Login fail, user not exist in database. Please enter again!',
+    'paginations' => 'Showing :start to :finish of :numberOfRecords entry|Showing :start to :finish of :numberOfRecords entries',
 ];
