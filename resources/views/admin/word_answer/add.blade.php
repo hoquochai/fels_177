@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     @include('admin.error')
-    @if ($message)
+    @if (isset($message))
         <div class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <span class="glyphicon glyphicon-warning-sign"></span> {{ $message }}</br>

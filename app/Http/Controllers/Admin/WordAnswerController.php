@@ -26,7 +26,7 @@ class WordAnswerController extends Controller
      */
     public function index()
     {
-        $numberRecord = config('common.user.pagination.default_number_record');
+        $numberRecord = config('common.word_answer.pagination.default_number_record_word_answer');
         $sortStyle = config('common.sort.sort_descending');
         $wordAnswers = WordAnswer::with('word')->orderBy('id', $sortStyle)->paginate($numberRecord);
         $messageTrans = trans('word_answer/names');
@@ -56,6 +56,7 @@ class WordAnswerController extends Controller
         $checkIsCorrect = [
             'word_id' => $request->word_id,
             'correct' => $config['result_true'],
+            'correct' => $request->correct,
         ];
         WordAnswer::where($checkIsCorrect)->update(['correct' => $config['result_false']]);
         $input = $request->only('word_id', 'content', 'correct');
@@ -102,8 +103,9 @@ class WordAnswerController extends Controller
         $checkIsCorrect = [
             'word_id' => $request->word_id,
             'correct' => $config['result_true'],
+            'correct' => $request->correct,
         ];
-        $wordAnswer->where($checkIsCorrect)->update(['correct' => $config['result_false']]);
+        WordAnswer::where($checkIsCorrect)->update(['correct' => $config['result_false']]);
         $input = $request->only('word_id', 'content', 'correct');
         $wordAnswer->update($input);
         $message = trans('word_answer/messages.success.update_word_answer_success');
