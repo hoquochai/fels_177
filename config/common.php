@@ -53,4 +53,16 @@ return [
             'word_content_length' => 255,
         ],
     ],
+    'word_answer' => [
+        'pagination' => [
+            'default_number_record_word_answer' => 20,
+        ],
+        'length' => [
+            'word_answer_content_length' => 255,
+        ],
+        'correct' => [
+            'result_true' => 1,
+            'result_false' => 0,
+        ],
+    ],
 ];
