@@ -61,7 +61,7 @@ class WordAnswerController extends Controller
         WordAnswer::where($checkIsCorrect)->update(['correct' => $config['result_false']]);
         $input = $request->only('word_id', 'content', 'correct');
         WordAnswer::firstOrCreate($input);
-        return redirect()->route('word_answer.index');
+        return redirect()->route('admin.word_answer.index');
     }
 
     /**
@@ -103,13 +103,12 @@ class WordAnswerController extends Controller
         $checkIsCorrect = [
             'word_id' => $request->word_id,
             'correct' => $config['result_true'],
-            'correct' => $request->correct,
         ];
         WordAnswer::where($checkIsCorrect)->update(['correct' => $config['result_false']]);
         $input = $request->only('word_id', 'content', 'correct');
         $wordAnswer->update($input);
         $message = trans('word_answer/messages.success.update_word_answer_success');
-        return redirect()->route('word_answer.index')->with('message', $message);
+        return redirect()->route('admin.word_answer.index')->with('message', $message);
     }
 
     /**
@@ -123,6 +122,6 @@ class WordAnswerController extends Controller
         $wordAnswer = WordAnswer::findOrFail($id);
         $wordAnswer->delete();
         $message = trans('word_answer/messages.success.delete_word_answer_success');
-        return redirect()->route('word_answer.index')->with('message', $message);
+        return redirect()->route('admin.word_answer.index')->with('message', $message);
     }
 }

@@ -8,7 +8,7 @@
 @section('content')
     <div class="row component">
         <div class="col-lg-6">
-            <a href="{{ route('user.index') }}">
+            <a href="{{ route('admin.user.index') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-user"></span> {{ trans('names.nav_menu_admin.user_menu') }}</h2>
                     <i>{{ trans('admin_infor/names.home.statistics.statistics_users') }}: {{ $numberOfUsers }}</i>
@@ -16,7 +16,7 @@
             </a>
         </div>
         <div class="col-lg-6">
-            <a href="{{ route('category.index') }}">
+            <a href="{{ route('admin.category.index') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-menu-hamburger"></span> {{ trans('names.nav_menu_admin.category_menu') }}</h2>
                     <i>{{ trans('admin_infor/names.home.statistics.statistics_categories') }}: {{ $numberOfCategories }}</i>
@@ -26,7 +26,7 @@
     </div>
     <div class="row component">
         <div class="col-lg-6">
-            <a href="{{ route('word.index') }}">
+            <a href="{{ route('admin.word.index') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-duplicate"></span> {{ trans('names.nav_menu_admin.word_menu') }}</h2>
                     <i>{{ trans('admin_infor/names.home.statistics.statistics_words') }}: {{ $numberOfWords }}</i>
@@ -34,7 +34,7 @@
             </a>
         </div>
         <div class="col-lg-6">
-            <a href="{{ route('word_answer.index') }}">
+            <a href="{{ route('admin.word_answer.index') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-duplicate"></span> {{ trans('names.nav_menu_admin.word_answer_menu') }}</h2>
                     <i>{{ trans('admin_infor/names.home.statistics.statistics_word_answers') }}: {{ $numberOfWordAnswers }}</i>
@@ -44,14 +44,14 @@
     </div>
     <div class="row component">
         <div class="col-lg-6">
-            <a href="{{ route('profileAdmin') }}">
+            <a href="{{ route('admin.profile') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-list-alt"></span> {{ trans('names.nav_menu_admin.profile_menu') }}</h2>
                 </button>
             </a>
         </div>
         <div class="col-lg-6">
-            <a href="{{ route('logoutAdmin') }}">
+            <a href="{{ route('logout') }}">
                 <button type="button" class="btn btn-success btn-block">
                     <h2><span class="glyphicon glyphicon-log-out"></span> {{ trans('names.nav_menu_admin.logout_menu') }}</h2>
                 </button>

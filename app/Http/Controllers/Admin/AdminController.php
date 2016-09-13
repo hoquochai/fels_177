@@ -63,7 +63,7 @@ class AdminController extends Controller
                 try {
                     unlink($oldAvatar);
                 } catch (Exception $e) {
-                    return redirect()->route('profileAdmin')->with('message', $uploadFail);
+                    return redirect()->route('admin.profile')->with('message', $uploadFail);
                 }
             }
 
@@ -72,7 +72,7 @@ class AdminController extends Controller
             try {
                 $avatar->move(public_path() . $pathAvatar, $fileName);
             } catch (Exception $e) {
-                return redirect()->route('profileAdmin')->with('message', $uploadFail);
+                return redirect()->route('admin.profile')->with('message', $uploadFail);
             }
 
             $input['avatar'] = $fileName;
@@ -80,7 +80,7 @@ class AdminController extends Controller
 
         $admin->update($input);
         $message = trans('admin_infor/message.success.update_admin_success');
-        return redirect()->route('profileAdmin')->with('message', $message);
+        return redirect()->route('admin.profile')->with('message', $message);
     }
 
     /**
@@ -93,11 +93,11 @@ class AdminController extends Controller
     {
         $admin = auth()->user();
         if (Hash::check($request->password, $admin->password)) {
-            $admin->update(['password' => bcrypt($request->password_new)]);
-            return redirect()->route('logoutAdmin');
+            $admin->update(['password' => $request->password_new]);
+            return redirect()->route('logout');
         }
 
         $message = trans('admin_infor/message.errors.update_admin_fail');
-        return redirect()->route('profileAdmin')->with('message', $message);
+        return redirect()->route('admin.profile')->with('message', $message);
     }
 }

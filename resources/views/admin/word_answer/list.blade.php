@@ -13,7 +13,7 @@
             <span class="glyphicon glyphicon-warning-sign"></span> {{ trans('word_answer/messages.warning.list_word_answers_not_found') }}</br>
         </div>
     @endif
-    <a href="{{ route('word_answer.create') }}">
+    <a href="{{ route('admin.word_answer.create') }}">
         <button type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> {{ trans('names.button.button_add') }}
         </button>
@@ -37,13 +37,13 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        {{ Form::open(['route' => ['word_answer.destroy', $wordAnswer->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word_answer/messages.confirm.message_confirm_delete') . '")']) }}
-                        <a href="{{ route('word_answer.show', ['id' => $wordAnswer->id]) }}">
+                        {{ Form::open(['route' => ['admin.word_answer.destroy', $wordAnswer->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word_answer/messages.confirm.message_confirm_delete') . '")']) }}
+                        <a href="{{ route('admin.word_answer.show', ['id' => $wordAnswer->id]) }}">
                             <button type="button" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-list"></span> {{ trans('names.button.button_detail') }}
                             </button>
                         </a>
-                        <a href="{{ route('word_answer.edit', ['id' => $wordAnswer->id]) }}">
+                        <a href="{{ route('admin.word_answer.edit', ['id' => $wordAnswer->id]) }}">
                             <button type="button" class="btn btn-warning btn-xs">
                                 <span class="glyphicon glyphicon-pencil"></span> {{ trans('names.button.button_update') }}
                             </button>

@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     @include('admin.error')
-    {{ Form::open(['route' => ['user.update', $user->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => ['admin.user.update', $user->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('user/names.label_key.label_key_name'), trans('user/names.label.user_name') . trans('names.required')) }}
         {{ Form::text('name', $user->name, ['class' => 'form-control', 'placeholder' => trans('user/names.placeholder.user_name_placeholder')]) }}
@@ -25,13 +25,13 @@
         {{ Form::file('avatar') }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_update'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('user.index') }}">
+    <a href="{{ route('admin.user.index') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>
     </a>
     {{ Form::close() }}
-    {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
+    {{ Form::open(['route' => ['admin.user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
     <i>{{ trans('user/names.label.label_delete') }}</i>
     {{ Form::button('<span class="glyphicon glyphicon-remove"></span> ' . trans('names.button.button_delete'), ['type' => 'submit', 'class' => 'btn btn-danger btn-xs delete']) }}
     {{ Form::close() }}

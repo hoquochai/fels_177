@@ -13,7 +13,7 @@
             <span class="glyphicon glyphicon-warning-sign"></span> {{ $message }}</br>
         </div>
     @endif
-    {{ Form::open(['route' => 'word_answer.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => 'admin.word_answer.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('word_answer/names.label_key.label_key_name_word'), trans('word_answer/names.label.word_name') . trans('names.required')) }}
         {{ Form::select('word_id', $words, null, ['class' => 'form-control', 'placeholder' => trans('word_answer/names.placeholder.word_placeholder')]) }}
@@ -28,7 +28,7 @@
         {{ Form::radio('correct', config('common.word_answer.correct.result_false')) }} {{ Form::label(trans('word_answer/names.label_key.label_key_correct_false'), trans('word_answer/names.label.word_answer_correct_false')) }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_add'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('word_answer.index') }}">
+    <a href="{{ route('admin.word_answer.index') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>

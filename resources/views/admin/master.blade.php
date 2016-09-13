@@ -36,33 +36,33 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid" id="menu">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ asset('admin') }}">{{ trans('names.project') }}</a>
+                    <a class="navbar-brand" href="{{ route('admin.home') }}">{{ trans('names.project') }}</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="{{ $navName === 'home' ? "active" : null }}">
-                        <a href="{{ asset('admin') }}">{{ trans('names.nav_menu_admin.home_menu') }}</a>
+                        <a href="{{ route('admin.home') }}">{{ trans('names.nav_menu_admin.home_menu') }}</a>
                     </li>
                     <li class="{{ $navName === 'user' ? "active" : null }}">
-                        <a href="{{ route('user.index') }}">{{ trans('names.nav_menu_admin.user_menu') }}</a>
+                        <a href="{{ route('admin.user.index') }}">{{ trans('names.nav_menu_admin.user_menu') }}</a>
                     </li>
                     <li class="{{ $navName === 'category' ? "active" : null }}">
-                        <a href="{{ route('category.index') }}">{{ trans('names.nav_menu_admin.category_menu') }}</a>
+                        <a href="{{ route('admin.category.index') }}">{{ trans('names.nav_menu_admin.category_menu') }}</a>
                     </li>
                     <li class="{{ $navName === 'word' ? "active" : null }}">
-                        <a href="{{ route('word.index') }}">{{ trans('names.nav_menu_admin.word_menu') }}</a>
+                        <a href="{{ route('admin.word.index') }}">{{ trans('names.nav_menu_admin.word_menu') }}</a>
                     </li>
                     <li class="{{ $navName === 'word_answer' ? "active" : null }}">
-                        <a href="{{ route('word_answer.index') }}">{{ trans('names.nav_menu_admin.word_answer_menu') }}</a>
+                        <a href="{{ route('admin.word_answer.index') }}">{{ trans('names.nav_menu_admin.word_answer_menu') }}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="{{ $navName === 'profile' ? "active" : null }}">
-                        <a href="{{ asset('admin/profile') }}">
+                        <a href="{{ route('admin.profile') }}">
                             <span class="glyphicon glyphicon-user"></span> {{ trans('names.nav_menu_admin.admin_menu') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ asset('admin/logout') }}">
+                        <a href="{{ route('logout') }}">
                             <span class="glyphicon glyphicon-log-out"></span> {{ trans('names.nav_menu_admin.logout_menu') }}
                         </a>
                     </li>

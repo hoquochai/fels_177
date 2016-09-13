@@ -55,7 +55,7 @@ class WordController extends Controller
     {
         $input = $request->only('category_id', 'content');
         Word::firstOrCreate($input);
-        return redirect()->route('word.index');
+        return redirect()->route('admin.word.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class WordController extends Controller
         $input = $request->only('category_id', 'content');
         $message = trans('word/messages.success.update_word_success');
         $word->update($input);
-        return redirect()->route('word.index')->with('message', $message);
+        return redirect()->route('admin.word.index')->with('message', $message);
     }
 
     /**
@@ -119,6 +119,6 @@ class WordController extends Controller
             $message = trans('word/messages.errors.delete_word_fail');
         }
 
-        return redirect()->route('word.index')->with('message', $message);
+        return redirect()->route('admin.word.index')->with('message', $message);
     }
 }

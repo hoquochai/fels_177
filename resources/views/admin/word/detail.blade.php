@@ -11,13 +11,13 @@
             {{ trans('word/names.label.category_name') }}: {{ $word->category->name }}<br>
             {{ trans('word/names.label.word_content') }}: {{ $word->content }}<br>
             {{ trans('names.times.create_at_time') }}: {{ $word->created_at }}<br>
-            {{ Form::open(['route' => ['word.destroy', $word->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word/messages.confirm.message_confirm_delete') . '")']) }}
-            <a href="{{ route('word.edit', ['id' => $word->id]) }}">
+            {{ Form::open(['route' => ['admin.word.destroy', $word->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word/messages.confirm.message_confirm_delete') . '")']) }}
+            <a href="{{ route('admin.word.edit', ['id' => $word->id]) }}">
                 <button type="button" class="btn btn-warning">
                     <span class="glyphicon glyphicon-pencil"></span> {{ trans('names.button.button_update') }}
                 </button>
             </a>
-            <a href="{{ route('word.index') }}">
+            <a href="{{ route('admin.word.index') }}">
                 <button type="button" class="btn btn-primary">
                     <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
                 </button>
