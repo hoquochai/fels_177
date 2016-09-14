@@ -13,7 +13,7 @@
             <span class="glyphicon glyphicon-warning-sign"></span> {{ trans('user/messages.warning.list_users_not_found') }}</br>
         </div>
     @endif
-    <a href="{{ route('user.create') }}">
+    <a href="{{ route('admin.user.create') }}">
         <button type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-user"></span> {{ trans('names.button.button_add') }}
         </button>
@@ -38,13 +38,13 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
-                        <a href="{{ route('user.show', ['id' => $user->id]) }}">
+                        {{ Form::open(['route' => ['admin.user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
+                        <a href="{{ route('admin.user.show', ['id' => $user->id]) }}">
                             <button type="button" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-user"></span> {{ trans('names.button.button_detail') }}
                             </button>
                         </a>
-                        <a href="{{ route('user.edit', ['id' => $user->id]) }}">
+                        <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}">
                             <button type="button" class="btn btn-warning btn-xs">
                                 <span class="glyphicon glyphicon-pencil"></span> {{ trans('names.button.button_update') }}
                             </button>

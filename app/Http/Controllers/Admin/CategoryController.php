@@ -61,7 +61,7 @@ class CategoryController extends Controller
                 $image->move(public_path() . $config['image_url'], $fileName);
             } catch (Exception $e) {
                 $message = trans('category/messages.errors.image_upload_failed');
-                return redirect()->route('category.create')->with('message', $message);
+                return redirect()->route('admin.category.create')->with('message', $message);
             }
         } else {
             $fileName = $config['default_name_image'];
@@ -70,7 +70,7 @@ class CategoryController extends Controller
         $input = $request->only('name', 'introduction');
         $input['image'] = $fileName;
         Category::firstOrCreate($input);
-        return redirect()->route('category.index');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -118,7 +118,7 @@ class CategoryController extends Controller
                 try {
                     unlink($imageOld);
                 } catch (Exception $e) {
-                    return redirect()->route('category.edit', ['id' => $id])->with('message', $uploadFail);
+                    return redirect()->route('admin.category.edit', ['id' => $id])->with('message', $uploadFail);
                 }
             }
 
@@ -127,7 +127,7 @@ class CategoryController extends Controller
             try {
                 $image->move(public_path() . $pathImage, $fileName);
             } catch (Exception $e) {
-                return redirect()->route('category.edit', ['id' => $id])->with('message', $uploadFail);
+                return redirect()->route('admin.category.edit', ['id' => $id])->with('message', $uploadFail);
             }
         } else {
             $fileName = $category->image;
@@ -137,7 +137,7 @@ class CategoryController extends Controller
         $input['image'] = $fileName;
         $category->update($input);
         $message = trans('category/messages.success.update_category_success');
-        return redirect()->route('category.index')->with('message', $message);
+        return redirect()->route('admin.category.index')->with('message', $message);
     }
 
     /**
@@ -161,7 +161,7 @@ class CategoryController extends Controller
                 } catch (Exception $e) {
                     DB::rollBack();
                     $message = trans('category/messages.errors.delete_category_fail');
-                    return redirect()->route('user.index')->with('message', $message);
+                    return redirect()->route('admin.user.index')->with('message', $message);
                 }
             }
 
@@ -175,6 +175,6 @@ class CategoryController extends Controller
             $message = trans('category/messages.errors.delete_category_fail');
         }
 
-        return redirect()->route('category.index')->with('message', $message);
+        return redirect()->route('admin.category.index')->with('message', $message);
     }
 }

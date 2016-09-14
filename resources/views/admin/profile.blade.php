@@ -8,7 +8,7 @@
 @section('content')
     @include('admin.error')
     @include('admin.message')
-    {{ Form::open(['route' => 'updateProfile', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => 'admin.updateProfile', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('admin_infor/names.profile.label_key_admin_name'), trans('admin_infor/names.profile.label_admin_name') . trans('names.required')) }}
         {{ Form::text('name', $admin->name, ['class' => 'form-control', 'placeholder' => trans('user/names.placeholder.user_name_placeholder')]) }}
@@ -26,7 +26,7 @@
         {{ Form::file('avatar') }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_update'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('homeAdmin') }}">
+    <a href="{{ route('admin.home') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>
@@ -48,7 +48,7 @@
                     <h4 class="modal-title">{{ trans('admin_infor/names.profile.label_change_password') }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ Form::open(['route' => 'changePassword', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+                    {{ Form::open(['route' => 'admin.changePassword', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
                     <div class="form-group">
                         {{ Form::label(trans('admin_infor/names.profile.label_key_admin_password'), trans('admin_infor/names.profile.label_admin_password') . trans('names.required')) }}
                         {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('admin_infor/names.profile.placeholder_old_password')]) }}

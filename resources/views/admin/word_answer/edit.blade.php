@@ -7,13 +7,13 @@
 @endsection
 @section('content')
     @include('admin.error')
-    @if ($message)
+    @if (isset($message))
         <div class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <span class="glyphicon glyphicon-warning-sign"></span> {{ $message }}</br>
         </div>
     @endif
-    {{ Form::open(['route' => ['word_answer.update', $wordAnswer->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => ['admin.word_answer.update', $wordAnswer->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('word_answer/names.label_key.label_key_name_word'), trans('word_answer/names.label.word_name') . trans('names.required')) }}
         {{ Form::select('word_id', $words, $wordAnswer->word->id, ['class' => 'form-control', 'placeholder' => trans('word_answer/names.placeholder.word_placeholder')]) }}
@@ -28,13 +28,13 @@
         {{ Form::radio('correct', config('common.word_answer.correct.result_false'), $wordAnswer->correct ? "" : true) }} {{ Form::label(trans('word_answer/names.label_key.label_key_correct_false'), trans('word_answer/names.label.word_answer_correct_false')) }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_update'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('word_answer.index') }}">
+    <a href="{{ route('admin.word_answer.index') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>
     </a>
     {{ Form::close() }}
-    {{ Form::open(['route' => ['word_answer.destroy', $wordAnswer->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word_answer/messages.confirm.message_confirm_delete') . '")']) }}
+    {{ Form::open(['route' => ['admin.word_answer.destroy', $wordAnswer->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('word_answer/messages.confirm.message_confirm_delete') . '")']) }}
     <i>{{ trans('word_answer/names.label.label_delete_word_answer') }}</i>
     {{ Form::button('<span class="glyphicon glyphicon-remove"></span> ' . trans('names.button.button_delete'), ['type' => 'submit', 'class' => 'btn btn-danger btn-xs delete']) }}
     {{ Form::close() }}

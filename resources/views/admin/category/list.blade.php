@@ -13,7 +13,7 @@
             <span class="glyphicon glyphicon-warning-sign"></span> {{ trans('category/messages.warning.list_categories_not_found') }}</br>
         </div>
     @endif
-    <a href="{{ route('category.create') }}">
+    <a href="{{ route('admin.category.create') }}">
         <button type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> {{ trans('names.button.button_add') }}
         </button>
@@ -38,13 +38,13 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        {{ Form::open(['route' => ['category.destroy', $category->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('category/messages.confirm.message_confirm_delete') . '")']) }}
-                        <a href="{{ route('category.show', ['id' => $category->id]) }}">
+                        {{ Form::open(['route' => ['admin.category.destroy', $category->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('category/messages.confirm.message_confirm_delete') . '")']) }}
+                        <a href="{{ route('admin.category.show', ['id' => $category->id]) }}">
                             <button type="button" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-list-alt"></span> {{ trans('names.button.button_detail') }}
                             </button>
                         </a>
-                        <a href="{{ route('category.edit', ['id' => $category->id]) }}">
+                        <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}">
                             <button type="button" class="btn btn-warning btn-xs">
                                 <span class="glyphicon glyphicon-pencil"></span> {{ trans('names.button.button_update') }}
                             </button>

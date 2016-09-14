@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     @include('admin.error')
-    {{ Form::open(['route' => ['category.update', $category->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => ['admin.category.update', $category->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('category/names.label_key.label_key_name'), trans('category/names.label.category_name') . trans('names.required')) }}
         {{ Form::text('name',  $category->name, ['class' => 'form-control', 'placeholder' => trans('category/names.placeholder.category_name_placeholder')]) }}
@@ -25,13 +25,13 @@
         {{ Form::file('image') }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_add'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('category.index') }}">
+    <a href="{{ route('admin.category.index') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>
     </a>
     {{ Form::close() }}
-    {{ Form::open(['route' => ['category.destroy', $category->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('category/messages.confirm.message_confirm_delete') . '")']) }}
+    {{ Form::open(['route' => ['admin.category.destroy', $category->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('category/messages.confirm.message_confirm_delete') . '")']) }}
     <i>{{ trans('category/names.label.label_delete_category') }}</i>
     {{ Form::button('<span class="glyphicon glyphicon-remove"></span> ' . trans('names.button.button_delete'), ['type' => 'submit', 'class' => 'btn btn-danger btn-xs delete']) }}
     {{ Form::close() }}

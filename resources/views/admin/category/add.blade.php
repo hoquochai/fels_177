@@ -7,7 +7,7 @@
 @endsection
 @section('content')
 	@include('admin.error')
-	{{ Form::open(['route' => 'category.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+	{{ Form::open(['route' => 'admin.category.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
 	<div class="form-group">
 		{{ Form::label(trans('category/names.label_key.label_key_name'), trans('category/names.label.category_name') . trans('names.required')) }}
 		{{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('category/names.placeholder.category_name_placeholder')]) }}
@@ -21,7 +21,7 @@
 		{{ Form::file('image') }}
 	</div>
 	{{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_add'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-	<a href="{{ route('category.index') }}">
+	<a href="{{ route('admin.category.index') }}">
 		<button type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
 		</button>

@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     @include('admin.error')
-    {{ Form::open(['route' => 'user.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['route' => 'admin.user.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{ Form::label(trans('user/names.label_key.label_key_name'), trans('user/names.label.user_name') . trans('names.required')) }}
         {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('user/names.placeholder.user_name_placeholder')]) }}
@@ -25,7 +25,7 @@
         {{ Form::file('avatar') }}
     </div>
     {{ Form::button('<span class="glyphicon glyphicon-ok"></span> ' . trans('names.button.button_add'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
-    <a href="{{ route('user.index') }}">
+    <a href="{{ route('admin.user.index') }}">
         <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('names.button.button_back') }}
         </button>

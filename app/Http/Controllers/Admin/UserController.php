@@ -63,7 +63,7 @@ class UserController extends Controller
                 $avatar->move(public_path() . $config['avatar_url'], $fileName);
             } catch (Exception $e) {
                 $message = trans('user/validations.admin.avatar.move');
-                return redirect()->route('user.create')->with('message', $message);
+                return redirect()->route('admin.user.create')->with('message', $message);
             }
         } else {
             $fileName = $config['default_name_avatar'];
@@ -73,7 +73,7 @@ class UserController extends Controller
         $input['avatar'] = $fileName;
         $input['roles'] = config('roles.user');
         User::firstOrCreate($input);
-        return redirect()->route('user.index');
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -122,7 +122,7 @@ class UserController extends Controller
                 try {
                     unlink($oldAvatar);
                 } catch (Exception $e) {
-                    return redirect()->route('user.edit', ['id' => $id])->with('message', $uploadFail);
+                    return redirect()->route('admin.user.edit', ['id' => $id])->with('message', $uploadFail);
                 }
             }
 
@@ -131,7 +131,7 @@ class UserController extends Controller
             try {
                 $avatar->move(public_path() . $pathAvatar, $fileName);
             } catch (Exception $e) {
-                return redirect()->route('user.edit', ['id' => $id])->with('message', $uploadFail);
+                return redirect()->route('admin.user.edit', ['id' => $id])->with('message', $uploadFail);
             }
         } else {
             $fileName = $user->avatar;
@@ -141,7 +141,7 @@ class UserController extends Controller
         $input['avatar'] = $fileName;
         $user->update($input);
         $message = trans('user/messages.success.update_user_success');
-        return redirect()->route('user.index')->with('message', $message);
+        return redirect()->route('admin.user.index')->with('message', $message);
     }
 
     /**
@@ -165,7 +165,7 @@ class UserController extends Controller
                 } catch (Exception $e) {
                     DB::rollBack();
                     $message = trans('user/messages.errors.delete_user_fail');
-                    return redirect()->route('user.index')->with('message', $message);
+                    return redirect()->route('admin.user.index')->with('message', $message);
                 }
             }
 
@@ -179,6 +179,6 @@ class UserController extends Controller
             $message = trans('user/messages.errors.delete_user_fail');
         }
 
-        return redirect()->route('user.index')->with('message', $message);
+        return redirect()->route('admin.user.index')->with('message', $message);
     }
 }

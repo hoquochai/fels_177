@@ -30,10 +30,10 @@ class LoginController extends Controller
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             if (auth()->user()->roles == config('roles.admin')) {
-                return redirect()->route('homeAdmin');
+                return redirect()->route('admin.home');
             }
 
-            return redirect()->route('homeUser');
+            return redirect()->route('home');
         }
 
         $message = trans('names.login_fail');

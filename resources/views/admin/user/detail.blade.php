@@ -15,13 +15,13 @@
             {{ trans('user/names.label.user_name') }}: {{ $user->name }}<br>
             {{ trans('user/names.label.user_email') }}: {{ $user->email }}<br>
             {{ trans('user/names.times.create_at_time') }}: {{ $user->created_at }}<br>
-            {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
-            <a href="{{ route('user.edit', ['id' => $user->id]) }}">
+            {{ Form::open(['route' => ['admin.user.destroy', $user->id], 'method' => 'DELETE', 'onsubmit' => 'return confirmDelete("' . trans('user/messages.confirm.message_confirm_delete') . '")']) }}
+            <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}">
                 <button type="button" class="btn btn-warning">
                     <span class="glyphicon glyphicon-pencil"></span> {{ trans('user/names.button.button_update') }}
                 </button>
             </a>
-            <a href="{{ route('user.index') }}">
+            <a href="{{ route('admin.user.index') }}">
                 <button type="button" class="btn btn-primary">
                     <span class="glyphicon glyphicon-arrow-left"></span> {{ trans('user/names.button.button_back') }}
                 </button>

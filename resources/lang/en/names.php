@@ -16,12 +16,21 @@ return [
         'profile_menu' => 'Profile',
         'logout_menu' => 'Logout',
     ],
+    'nav_menu_user' => [
+        'result_menu' => 'Result',
+    ],
     'button' => [
         'button_add' => 'Add',
         'button_update' => 'Edit',
         'button_delete' => 'Delete',
         'button_detail' => 'Detail',
         'button_back' => 'Back',
+        'button_start' => 'Start',
+        'button_submit' => 'Submit',
+        'button_next' => 'Next',
+        'button_view_result' => 'View result',
+        'button_follow' => 'Follow',
+        'button_unfollow' => 'Unfollow',
     ],
     'times' => [
         'create_at_time' => 'Created at',
