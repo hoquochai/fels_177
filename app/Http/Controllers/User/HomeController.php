@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Activity;
+use App\Models\User;
+use App\Models\UserWord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\User\UserController;
 use App\Http\Requests;
 
 class HomeController extends UserController
 {
+    protected $navName = "home";
+
+    /**
+     * HomeController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct($this->navName);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +28,16 @@ class HomeController extends UserController
      */
     public function index()
     {
-        //
+        $user = parent::index();
+        $countWordUserLearned = UserWord::where('user_id', $user->id)->count();
+        $userFollows = User::whereIn('id', function($query) use($user) {
+            $query->select('following_id')->from('relationships')->where('follower_id', $user->id)->where('deleted_at', null)->get();
+        })->paginate(5);
+        $activities = Activity::whereIn('user_id', function($query) use($user){
+            $query->select('following_id')->from('relationships')->where('follower_id', $user->id);
+        })->get();
+
+        return view('user.home', compact('countWordUserLearned', 'userFollows', 'activities'));
     }
 
     /**

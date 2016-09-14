@@ -6,6 +6,7 @@ return [
         'delete_user_fail' => 'User can NOT DELETED because it not exist in database. Please try again!',
         'user_not_exist' => 'User not found. Please refresh page!',
         'avatar_upload_failed' => 'Avatar can not uploaded. Please try again!',
+        'password_incorrect' => 'Password incorrect. Please enter again!'
     ],
     'warning' => [
         'list_users_not_found' => 'Can\'t found any user in database. Please add a new user!',

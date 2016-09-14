@@ -39,14 +39,14 @@
             <li class="{{ $navName === 'profile' ? "active" : null }}"><a href="{{ route('profile.index') }}">{{ trans('names.nav_menu_admin.profile_menu') }}</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="{{ $navName === 'profile' ? "active" : null }}"><a href="{{ route('profile.index') }}"><span class="glyphicon glyphicon-user"></span> {{ $user->name }}</a></li>
+            <li><a href="{{ route('profile.index') }}"><span class="glyphicon glyphicon-user"></span> {{ $user->name }}</a></li>
             <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> {{ trans('names.nav_menu_admin.logout_menu') }}</a></li>
         </ul>
     </div>
 </nav>
 
 <!--Content-->
-<div class="row">
+<div class="container-fluid">
     <div class="col-lg-10">
         <div class="row" id="content">
             @yield('content')

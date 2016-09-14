@@ -4,6 +4,13 @@ return [
     'master' => [
         'heading_panel_user_list' => 'List all user',
     ],
+    'home' => [
+        'title_home_client' => 'User - Home',
+        'label_count_word_learned' => 'Learned :numberOfWords word|Learned :numberOfWords words',
+        'label_user_follow' => 'User follow',
+        'label_follow_user' => 'Follow user',
+        'label_Activities' => 'Activities',
+    ],
     'category' => [
         'title_category_client' => 'User - Category',
         'heading_panel_category' => 'List all categories of system',
@@ -34,4 +41,8 @@ return [
         'heading_panel_result' => 'Result summary',
         'body_panel_result' => 'You learned words: ',
     ],
+    'profile' => [
+        'title_profile_client' => 'User - Profile',
+        'heading_panel_profile' => 'Profile',
+    ]
 ];

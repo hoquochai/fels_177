@@ -25,6 +25,9 @@ Route::group(['namespace' => 'User', 'middleware' => 'user'], function () {
     Route::resource('profile', 'ProfileController');
     Route::resource('home', 'HomeController');
     Route::resource('result', 'ResultController');
+    Route::resource('change-password', 'ChangePasswordController');
+    Route::resource('follow', 'FollowController');
+    Route::resource('un-follow', 'UnFollowController');
 });
 
 /********************************************
