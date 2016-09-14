@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\User\UserController;
+use App\Models\Relationship;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,66 +22,12 @@ class FollowController extends UserController
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         $user = parent::index();
         if ($id != $user->id) {
@@ -89,29 +37,10 @@ class FollowController extends UserController
                     'following_id' => $id,
                     'follower_id' => $user->id,
                 ];
-                try {
-                    Relationship::firstOrCreate($data);
-                    $this->activity(config('common.action.action_follow', $id));
-                    $message = "Follow success";
-                } catch (Exception $ex) {
-                    $message = "Follow fail";
-                }
-            } else {
-                $message = "User not found";
+                Relationship::firstOrCreate($data);
+                parent::create($id, config('common.activity.activity_follow'));
             }
-        } else {
-            $message = "Can't follow yourself";
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('home.index');
     }
 }

@@ -47,12 +47,12 @@
 
 <!--Content-->
 <div class="container-fluid">
-    <div class="col-lg-10">
+    <div class="col-lg-9">
         <div class="row" id="content">
             @yield('content')
         </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
         <div class="panel panel-primary" id="user-list">
             <div class="panel-heading">
                 <h3>{{ trans('client/name.master.heading_panel_user_list') }}</h3>
@@ -63,16 +63,24 @@
                         {{ trans('client/message.master.have_not_users') }}
                     </div>
                 @endif
-                @foreach ($users as $user)
+                @foreach ($users as $client)
                     <div class="row">
                         <div class="col-lg-3">
-                            <img src="{{ asset(config('common.user.path.avatar_url') . $user->avatar) }}" width="40px" height="40">
+                            <img src="{{ asset(config('common.user.path.avatar_url') . $client->avatar) }}" width="40px" height="40">
                         </div>
                         <div class="col-lg-9">
-                            {{ $user->name }} <br>
+                            {{ $client->name }} <br>
                             <div class="btn-group">
-                                <button class="btn btn-success btn-xs">{{ trans('names.button.button_follow') }}</button>
-                                <button class="btn btn-warning btn-xs">{{ trans('names.button.button_unfollow') }}</button>
+                                <a href="{{ in_array($client->id, $relationships) ? "#" : route('follow.edit', ['id' => $client->id]) }}">
+                                    <button class="btn btn-success btn-xs {{ in_array($client->id, $relationships) ? "disabled" : "" }}">
+                                        {{ trans('names.button.button_follow') }}
+                                    </button>
+                                </a>
+                                <a href="{{ in_array($client->id, $relationships) ? route('un-follow.edit', ['id' => $client->id]) : "#" }}">
+                                    <button class="btn btn-warning btn-xs {{ in_array($client->id, $relationships) ? "" : "disabled" }}">
+                                        {{ trans('names.button.button_unfollow') }}
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

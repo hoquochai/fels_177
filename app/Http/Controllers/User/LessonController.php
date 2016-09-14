@@ -93,6 +93,7 @@ class LessonController extends UserController
         })->get();
         if ($word->count() == 0) {
             $message = trans('client/message.lesson.word_not_exists');
+            parent::create($id, config('common.activity.activity_learned'));
             return view('user.lesson', compact('word', 'message'));
         }
 
@@ -110,6 +111,7 @@ class LessonController extends UserController
                 'word_id' => $word->id,
             ];
             LessonWord::create($lessonWord);
+            parent::create($id, config('common.activity.activity_learning'));
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
