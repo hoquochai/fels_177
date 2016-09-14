@@ -92,5 +92,7 @@
 <!-- Lesson JavaScript -->
 <script src="{{ asset('/js/user/lesson.js') }}"></script>
 
+<!-- Word list JavaScript -->
+<script src="{{ asset('/js/user/word-list.js') }}"></script>
 </body>
 </html>

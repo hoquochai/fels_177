@@ -10,14 +10,12 @@ use App\Http\Requests;
 class UserController extends Controller
 {
 
-    protected $navName;
-
     /**
      * UserController constructor.
      */
-    public function __construct()
+    public function __construct($navName)
     {
-        parent::__construct($this->navName);
+        parent::__construct($navName);
     }
 
     /**
@@ -33,5 +31,7 @@ class UserController extends Controller
             'users' => $users,
             'user' => $user,
         ]);
+
+        return $user;
     }
 }

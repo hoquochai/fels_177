@@ -65,4 +65,9 @@ return [
             'result_false' => 0,
         ],
     ],
+    'word_filter' => [
+        'word_learned_filter' => 1,
+        'word_not_learned_filter' => 2,
+        'word_all_filter' => 3,
+    ],
 ];

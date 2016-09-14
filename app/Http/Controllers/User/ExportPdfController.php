@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\UserWord;
-use Illuminate\Http\Request;
 use App\Http\Controllers\User\UserController;
-use App\Http\Requests;
+use App\Models\Word;
+use Illuminate\Http\Request;
 
-class ResultController extends UserController
+use App\Http\Requests;
+use Illuminate\Support\Facades\App;
+
+class ExportPdfController extends UserController
 {
-    protected $navName = "result";
+    protected $navName = "word";
 
     public function __construct()
     {
@@ -23,9 +25,18 @@ class ResultController extends UserController
      */
     public function index()
     {
-        $user = parent::index();
-        $userWords = UserWord::with('user', 'word')->where('user_id', $user->id)->get();
-        return view('user.result', compact('userWords'));
+        $words = Word::pluck('content');
+        $pdf = app('dompdf.wrapper');
+        $pdfData = trans('client/name.word_list.header_pdf_file');
+        if (count($words)) {
+            foreach ($words as $word) {
+                $pdfData .= trans('client/name.word_list.content_pdf_file', ['words' => $word]);
+            }
+        }
+
+        $pdf->loadHTML($pdfData);
+        $filename = date('Y-m-d H:i:s') . ".pdf";
+        return $pdf->download($filename);
     }
 
     /**

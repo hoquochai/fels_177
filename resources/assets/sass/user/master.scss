@@ -1,5 +1,5 @@
 #content {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 #user-list {
@@ -14,4 +14,21 @@
 .incorrect {
   color: red;
   font-size: 30px;
+}
+
+#all-word-box, #filter-result-box {
+  min-height: 500px;
+}
+
+#resultPfd {
+  text-align: center;
+}
+
+#result {
+  min-height: 500px;
+}
+
+#title-body-result {
+  border-bottom: 1px solid black;
+  width: 210px;
 }
