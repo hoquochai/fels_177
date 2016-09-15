@@ -16,4 +16,8 @@ return [
         'user_not_answer' => 'Please choose answer for this question before submit!',
         'word_not_exists' => 'You have to learn whole words in this category!',
     ],
+    'word' => [
+        'words_not_found' => 'No words is found',
+        'not_choose_filter' => 'Please choose category or type to filter',
+    ],
 ];

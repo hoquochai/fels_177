@@ -31,6 +31,8 @@ return [
         'button_view_result' => 'View result',
         'button_follow' => 'Follow',
         'button_unfollow' => 'Unfollow',
+        'button_filter' => 'Filter',
+        'button_pdf' => 'PDF',
     ],
     'times' => [
         'create_at_time' => 'Created at',

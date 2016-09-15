@@ -21,6 +21,7 @@ Route::group(['namespace' => 'User', 'middleware' => 'user'], function () {
     Route::resource('category', 'CategoryController');
     Route::resource('lesson', 'LessonController');
     Route::resource('word', 'WordController');
+    Route::resource('export-pdf', 'ExportPdfController');
     Route::resource('profile', 'ProfileController');
     Route::resource('home', 'HomeController');
     Route::resource('result', 'ResultController');
