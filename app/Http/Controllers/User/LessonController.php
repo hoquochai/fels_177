@@ -79,7 +79,7 @@ class LessonController extends UserController
      */
     public function show($id)
     {
-        parent::index();
+        $user = parent::index();
         $messageLesson = json_encode([
             'question_not_answer' => trans('client/message.lesson.question_not_answer'),
             'user_not_answer' => trans('client/message.lesson.user_not_answer'),
@@ -88,37 +88,41 @@ class LessonController extends UserController
             'confirm_view_result' => trans('client/message.lesson.confirm_view_result'),
             'button_view_result' => trans('names.button.button_view_result'),
         ]);
-        $word = Word::where('category_id', $id)->whereNotIn('id', function ($query) {
-            $query->select('word_id')->from('user_words')->where('user_id', auth()->user()->id);
-        })->get();
-        if ($word->count() == 0) {
+        $numberOfLesson = Lesson::where('category_id', $id)->count();
+        $lessonName = trans('client/name.lesson.name_lesson', ['lessonNumbers' => $numberOfLesson + 1]);
+        $idWordUserLearned = UserWord::where('user_id', $user->id)->pluck('id');
+        $words = Word::inRandomOrder()->where('category_id', $id)->whereNotIn('id', $idWordUserLearned)->take(2)->pluck('content', 'id')->toArray();
+        list($idWords, $nameWords) = array_divide($words);
+        if (count($idWords) == 0) {
             $message = trans('client/message.lesson.word_not_exists');
             parent::create($id, config('common.activity.activity_learned'));
-            return view('user.lesson', compact('word', 'message'));
+            return view('user.lesson', compact('words', 'message'));
         }
 
-        $word = $word->random();
-        $wordAnswers = WordAnswer::where('word_id', $word->id)->get();
+        $wordAnswers = WordAnswer::whereIn('word_id', $idWords)->get()->toArray();
         try {
             DB::beginTransaction();
             $lesson = [
                 'category_id' => $id,
-                'name' => $word->content,
+                'name' => $lessonName,
             ];
-            $lessionID = Lesson::create($lesson)->id;
-            $lessonWord = [
-                'lesson_id' => $lessionID,
-                'word_id' => $word->id,
-            ];
-            LessonWord::create($lessonWord);
+            $lessionID = Lesson::firstOrCreate($lesson)->id;
+            foreach ($idWords as $idWord) {
+                $lessonWord = [
+                    'lesson_id' => $lessionID,
+                    'word_id' => $idWord,
+                ];
+                LessonWord::firstOrCreate($lessonWord);
+            }
             parent::create($id, config('common.activity.activity_learning'));
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
             $message = trans('client/message.lesson.create_lesson_fail');
-            return view('user.lesson', compact('word', 'message'));
+            return view('user.lesson', compact('words', 'message'));
         }
-
-        return view('user.lesson', compact('word', 'wordAnswers', 'id', 'messageLesson'));
+        $words = json_encode($words);
+        $wordAnswers = sjson_encode($wordAnswers);
+        return view('user.lesson', compact('words', 'wordAnswers', 'id', 'messageLesson', 'lessonName'));
     }
 }

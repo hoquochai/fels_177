@@ -18,6 +18,7 @@ return [
     'lesson' => [
         'title_lesson_client' => 'User - Lesson',
         'label_key_answer' => 'answer',
+        'name_lesson' => 'Lesson :lessonNumbers',
     ],
     'word_list' => [
         'title_word_list_client' => 'User - Word - List',
