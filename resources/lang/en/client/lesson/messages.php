@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'master' => [
-        'have_not_users' => 'System have not any other users',
-    ],
-    'category' => [
-        'have_not_category' => 'System have not categories',
-    ],
     'lesson' => [
         'create_lesson_fail' => 'Can\'t create lesson of this category',
         'question_not_answer' => 'This lesson haven\'t answer. Please contact admin!',
@@ -15,9 +9,5 @@ return [
         'answer_correct' => 'Result: Correct',
         'user_not_answer' => 'Please choose answer for this question before submit!',
         'word_not_exists' => 'You have to learn whole words in this category!',
-    ],
-    'word' => [
-        'words_not_found' => 'No words is found',
-        'not_choose_filter' => 'Please choose category or type to filter',
     ],
 ];

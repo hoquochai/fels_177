@@ -70,4 +70,13 @@ return [
         'word_not_learned_filter' => 2,
         'word_all_filter' => 3,
     ],
+    'home' => [
+        'default_number_record_follow' => 5,
+    ],
+    'activity' => [
+        'activity_follow' => 1,
+        'activity_unfollow' => 2,
+        'activity_learned' => 3,
+        'activity_learning' => 4,
+    ],
 ];

@@ -1,6 +1,6 @@
 @extends('user.master')
 @section('title')
-    {{ trans('client/name.lesson.title_lesson_client') }}
+    {{ trans('client/lesson/names.lesson.title_lesson_client') }}
 @endsection
 @section('content')
     <div class="col-lg-8 col-lg-offset-2">

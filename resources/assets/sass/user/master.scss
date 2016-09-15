@@ -2,6 +2,21 @@
   margin-top: 100px;
 }
 
+#activity {
+  border-left: 1px solid gainsboro;
+  min-height: 500px;
+}
+
+#avatar-user {
+  display: block;
+  margin: 0 auto;
+}
+
+.infor-user {
+  display: block;
+  text-align: center;
+}
+
 #user-list {
   margin-top: 30px;
 }
