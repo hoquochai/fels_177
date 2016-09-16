@@ -18,6 +18,7 @@
                 {{ Form::hidden('message', $messageLesson) }}
                 <div class="panel-heading"><h1>{{ $lessonName }}</h1></div>
                 <div class="panel-body">
+                    <div id="question"></div>
                     {{--<pre>--}}
                         {{--{{ print_r($words) }}--}}
                     {{--</pre>--}}
@@ -34,6 +35,8 @@
                         {{--<hr>--}}
                     {{--@endforeach--}}
                     {{--<button class="btn btn-success submit">{{ trans('names.button.button_submit') }}</button>--}}
+                    <hr>
+                    <div class="result"></div>
                 </div>
             </div>
         @endif

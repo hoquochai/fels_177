@@ -91,7 +91,7 @@ class LessonController extends UserController
         $numberOfLesson = Lesson::where('category_id', $id)->count();
         $lessonName = trans('client/name.lesson.name_lesson', ['lessonNumbers' => $numberOfLesson + 1]);
         $idWordUserLearned = UserWord::where('user_id', $user->id)->pluck('id');
-        $words = Word::inRandomOrder()->where('category_id', $id)->whereNotIn('id', $idWordUserLearned)->take(2)->pluck('content', 'id')->toArray();
+        $words = Word::inRandomOrder()->where('category_id', $id)->whereNotIn('id', $idWordUserLearned)->take(3)->pluck('content', 'id')->toArray();
         list($idWords, $nameWords) = array_divide($words);
         if (count($idWords) == 0) {
             $message = trans('client/message.lesson.word_not_exists');
@@ -122,7 +122,7 @@ class LessonController extends UserController
             return view('user.lesson', compact('words', 'message'));
         }
         $words = json_encode($words);
-        $wordAnswers = sjson_encode($wordAnswers);
+        $wordAnswers = json_encode($wordAnswers);
         return view('user.lesson', compact('words', 'wordAnswers', 'id', 'messageLesson', 'lessonName'));
     }
 }
