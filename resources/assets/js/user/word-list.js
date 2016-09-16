@@ -1,17 +1,17 @@
 $(document).ready(function () {
-    var messageRtn = JSON.parse($('input[name=messageFilter]').val());
     $('#btn-filter').click(function () {
         $('#resultPfd').html("");
         $.ajax({
-            url: $('input[name=routeFilter]').val(),
+            url: $('.hide-word-list').data("routeFilter"),
             type: 'post',
             data: {
                 'category': $('select[name=category]').val(),
                 'type': $('input[name=type]:checked').val(),
-                '_token': $('input[name=_token]').val()
+                '_token': $('.hide-word-list').data("token")
             },
             success: function (data) {
                 var html = "";
+                var messageRtn = $('.hide-word-list').data("messageFilter");
                 if (data.success == false) {
                     html = "<div class='alert alert-danger'>" + messageRtn.not_choose_filter + "</div>";
                 } else {
@@ -24,7 +24,8 @@ $(document).ready(function () {
                             html += "</div>";
                             wordFilter += dataRtn[index].content + ",";
                         }
-                        html += "<input type='hidden' name='wordFilter' value='" + wordFilter.substring(0, wordFilter.length - 1) + "'>"
+                        html += "<input type='hidden' name='wordFilter' value='"
+                            + wordFilter.substring(0, wordFilter.length - 1) + "'>"
                     } else {
                         html = "<div class='alert alert-info'>" + messageRtn.words_not_found + "</div>";
                     }
