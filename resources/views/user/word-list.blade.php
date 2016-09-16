@@ -1,11 +1,11 @@
 @extends('user.master')
 @section('title')
-    {{ trans('client/name.word_list.title_word_list_client') }}
+    {{ trans('client/word_list/names.word_list.title_word_list_client') }}
 @endsection
 @section('content')
     <div class="col-lg-8 col-lg-offset-2">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h1>{{ trans('client/name.word_list.heading_panel_word_list') }}</h1></div>
+            <div class="panel-heading"><h1>{{ trans('client/word_list/names.word_list.heading_panel_word_list') }}</h1></div>
             <div class="panel-body">
                 <div class="row">
                     <div class = "col-lg-6">
@@ -18,13 +18,13 @@
                         </div>
                     </div>
                     <div class = "col-lg-6">
-                        {{ Form::label(trans('client/name.word_list.label_filter_key'), trans('client/name.word_list.label_filter_type')) }}<br>
+                        {{ Form::label(trans('client/word_list/names.word_list.label_filter_key'), trans('client/word_list/names.word_list.label_filter_type')) }}<br>
                         {{ Form::radio('type', config('common.word_filter.word_learned_filter')) }}
-                        {{ Form::label(trans('client/name.word_list.label_word_learned_filter_key'), trans('client/name.word_list.label_word_learned_filter')) }}
+                        {{ Form::label(trans('client/word_list/names.word_list.label_word_learned_filter_key'), trans('client/word_list/names.word_list.label_word_learned_filter')) }}
                         {{ Form::radio('type', config('common.word_filter.word_not_learned_filter')) }}
-                        {{ Form::label(trans('client/name.word_list.label_word_not_learned_filter_key'), trans('client/name.word_list.label_word_not_learned_filter')) }}
+                        {{ Form::label(trans('client/word_list/names.word_list.label_word_not_learned_filter_key'), trans('client/word_list/names.word_list.label_word_not_learned_filter')) }}
                         {{ Form::radio('type', config('common.word_filter.word_all_filter')) }}
-                        {{ Form::label(trans('client/name.word_list.label_word_all_filter_key'), trans('client/name.word_list.label_word_all_filter')) }}
+                        {{ Form::label(trans('client/word_list/names.word_list.label_word_all_filter_key'), trans('client/word_list/names.word_list.label_word_all_filter')) }}
                     </div>
                 </div>
                 <div class="row">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="panel panel-primary" id="all-word-box">
-                            <div class="panel-heading">{{ trans('client/name.word_list.heading_panel_word_list_filter') }}</div>
+                            <div class="panel-heading">{{ trans('client/word_list/names.word_list.heading_panel_word_list_filter') }}</div>
                             <div class="panel-body">
                                 @foreach ($words as $word)
                                     <div class="col-lg-6">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="panel panel-primary" id="filter-result-box">
-                            <div class="panel-heading">{{ trans('client/name.word_list.heading_panel_word_filter_result') }}</div>
+                            <div class="panel-heading">{{ trans('client/word_list/names.word_list.heading_panel_word_filter_result') }}</div>
                             <div class="panel-body">
                                 <div class="filter-result">
 

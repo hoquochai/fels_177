@@ -33,6 +33,8 @@ return [
         'button_unfollow' => 'Unfollow',
         'button_filter' => 'Filter',
         'button_pdf' => 'PDF',
+        'button_word_list' => 'Words',
+        'button_lesson' => 'Lesson',
     ],
     'times' => [
         'create_at_time' => 'Created at',

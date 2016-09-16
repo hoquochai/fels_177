@@ -1,17 +1,17 @@
 @extends('user.master')
 @section('title')
-    {{ trans('client/name.category.title_category_client') }}
+    {{ trans('client/category/names.category.title_category_client') }}
 @endsection
 @section('content')
     <div class="col-lg-8 col-lg-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h1>{{ trans('client/name.category.heading_panel_category') }}</h1>
+                <h1>{{ trans('client/category/names.category.heading_panel_category') }}</h1>
             </div>
             <div class="panel-body">
                 @if ($categories->count() == 0)
                     <div class="alert alert-info">
-                        {{ trans('client/message.category.have_not_category') }}
+                        {{ trans('client/category/messages.category.have_not_category') }}
                     </div>
                 @endif
 

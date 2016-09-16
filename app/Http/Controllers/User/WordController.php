@@ -6,11 +6,11 @@ use App\Models\Category;
 use App\Models\UserWord;
 use App\Models\Word;
 use Illuminate\Http\Request;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 
-class WordController extends UserController
+class WordController extends Controller
 {
     protected $navName = "word";
 
@@ -30,26 +30,15 @@ class WordController extends UserController
     public function index()
     {
         $messageWord = json_encode([
-            'words_not_found' => trans('client/message.word.words_not_found'),
-            'not_choose_filter' => trans('client/message.word.not_choose_filter'),
-            'print_not_words' => trans('client/message.word.print_not_words'),
-            'print_success' => trans('client/message.word.print_success'),
-            'print_fail' => trans('client/message.word.print_not_words'),
+            'words_not_found' => trans('client/word_list/messages.word.words_not_found'),
+            'not_choose_filter' => trans('client/word_list/messages.word.not_choose_filter'),
+            'print_not_words' => trans('client/word_list/messages.word.print_not_words'),
+            'print_success' => trans('client/word_list/messages.word.print_success'),
+            'print_fail' => trans('client/word_list/messages.word.print_not_words'),
         ]);
-        parent::index();
         $categories = Category::pluck('name', 'id');
         $words = Word::all();
         return view('user.word-list', compact('words', 'categories', 'messageWord'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
     }
 
     /**
@@ -60,7 +49,7 @@ class WordController extends UserController
      */
     public function store(Request $request)
     {
-        $user = parent::index();
+        $user = auth()->user();;
         $input = $request->only('category', 'type');
         if (empty($input['category']) && is_null($input['type'])) {
             $data = [
@@ -105,50 +94,5 @@ class WordController extends UserController
 
         return response()->json($data);
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
