@@ -69,5 +69,8 @@
 
 <!-- Word list JavaScript -->
 <script src="{{ asset('/js/user/word-list.js') }}"></script>
+
+<!-- Result JavaScript -->
+<script src="{{ asset('/js/user/result.js') }}"></script>
 </body>
 </html>

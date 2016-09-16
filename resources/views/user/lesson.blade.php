@@ -9,31 +9,17 @@
                 {{ $message }}
             </div>
         @endif
-        @if ($word->count())
+        @if (count($words))
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h1>{{ $word->content }}</h1>
-                </div>
+                {{ Form::hidden('words', $words) }}
+                {{ Form::hidden('wordAnswers', $wordAnswers) }}
+                {{ Form::hidden('_token', csrf_token()) }}
+                {{ Form::hidden('route', route('lesson.store')) }}
+                {{ Form::hidden('message', $messageLesson) }}
+                {{ Form::hidden('numberOfQuestion', $numberOfQuestion) }}
+                <div class="panel-heading"><h1>{{ $lessonName }}</h1></div>
                 <div class="panel-body">
-                    <h3><b><i>{{ $word->content }}</i></b></h3>
-                    <div class="form-group">
-                        {{ Form::hidden('word', $word->id) }}
-                        {{ Form::hidden('_token', csrf_token()) }}
-                        {{ Form::hidden('route', route('lesson.store')) }}
-                        {{ Form::hidden('message', $messageLesson) }}
-                    </div>
-                    @foreach($wordAnswers as $wordAnswer)
-                        <div class="form-group">
-                            <label class="answer"
-                                   id="{{ $wordAnswer->id }}">{{ Form::radio('answer', $wordAnswer->id) }} {{ $wordAnswer->content }}
-                            </label>
-                        </div>
-                    @endforeach
-                    <hr>
-                    <button class="btn btn-success submit">{{ trans('names.button.button_submit') }}</button>
-                    <a href="{{ route('lesson.show', ['id' => $id]) }}">
-                        <button class="btn btn-primary">{{ trans('names.button.button_next') }}</button>
-                    </a>
+                    <div id="question"></div>
                     <hr>
                     <div class="result"></div>
                 </div>

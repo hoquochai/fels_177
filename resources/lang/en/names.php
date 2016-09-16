@@ -35,6 +35,7 @@ return [
         'button_pdf' => 'PDF',
         'button_word_list' => 'Words',
         'button_lesson' => 'Lesson',
+        'button_view_lesson' => 'View',
     ],
     'times' => [
         'create_at_time' => 'Created at',
