@@ -80,6 +80,7 @@ return [
         'activity_learning' => 4,
     ],
     'result' => [
-        'default_number_record_result' => 2,
+        'default_number_record_result' => 10,
+        'default_score' => 0,
     ]
 ];

@@ -32,15 +32,18 @@ function showLesson() {
                     "</thead> " +
                     "<tbody>";
                 for (var index = 0; index < lessonWordsParse.length; index++) {
+                    var iscorrect = false;
                     html += "<tr>";
                     for (var i = 0; i < userWordsParse.length; i++) {
                         if (userWordsParse[i].word_id == lessonWordsParse[index].word_id) {
                             html += "<td>" + messageRtn.sign_correct + "</td>";
-                        } else {
-                            html += "<td>" + messageRtn.sign_incorrect + "</td>";
+                            iscorrect = true;
+                            i = userWordsParse.length;
                         }
+                    }
 
-                        i =  userWordsParse.length;
+                    if (!iscorrect) {
+                        html += "<td>" + messageRtn.sign_incorrect + "</td>";
                     }
 
                     html += "<td>" + lessonWordsParse[index].word.content + "</td>";

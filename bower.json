@@ -1,0 +1,21 @@
+{
+  "name": "fels_177",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Hai Ho <hoquochaibkdn@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hoquochai/fels_177",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

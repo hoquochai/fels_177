@@ -36,6 +36,8 @@ return [
         'button_word_list' => 'Words',
         'button_lesson' => 'Lesson',
         'button_view_lesson' => 'View',
+        'button_finish' => 'Finish',
+        'button_previous' => 'Previous',
     ],
     'times' => [
         'create_at_time' => 'Created at',

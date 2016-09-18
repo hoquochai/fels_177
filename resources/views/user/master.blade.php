@@ -46,8 +46,8 @@
 </nav>
 
 <!--Content-->
-<div class="container-fluid">
-    @include('admin.error');
+<div class="container-fluid" id="body">
+    @include('admin.error')
     <div class="col-lg-9">
         <div class="row" id="content">
             @yield('content')

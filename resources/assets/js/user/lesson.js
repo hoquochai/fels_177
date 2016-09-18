@@ -1,27 +1,51 @@
 var isFinish = [];
-
+var isChoose = [];
+var valueProgessBar = 30;
+var currentNumberOfQuestion = 0;
+var numberOfQuestion = $('input[name=numberOfQuestion]').val();
+var messageRtn = JSON.parse($('input[name=message]').val());
+var routeResult = $('input[name=routeResult]').val();
+var routeSaveResult = $('input[name=routeSaveResult]').val();
+var lessonId = $('input[name=lessonId]').val();
+var score = 0;
+var wordQuestions = [];
 $(document).ready(function () {
     showQuestion(0);
-    $('input[type=radio][name=answer]').click(function () {
-        $('.answer').find('span').remove()
-    });
+    for (var index = 0; index < isChoose.length; index++) {
+        $('input:radio[name="answer"][value=index]').attr('checked',true);
+    }
 });
 
-function showResult(id) {
-    $('.answer').find('span').remove();
-    $('#' + id).append("   <span class='glyphicon glyphicon-ok correct'></span>");
+function saveAnswer(number, wordId) {
+    console.log("action saveAnswer");
+    console.log("wordId: "+wordId);
+    if (isFinish.indexOf(number) == -1) {
+        isFinish.push(number);
+    }
+
+    if (wordQuestions.indexOf(wordId) == -1) {
+        wordQuestions.push(wordId);
+    }
+
+    id = $('input[type=radio][name=answer]:checked').attr('id');
+    id = parseInt(id);
+    console.log(id);
+    if (isChoose.indexOf(id) == -1) {
+        isChoose.push(id);
+    }
 }
 
 function showQuestion(number) {
-    console.log(number);
+
     /* init variable */
     var words = $('input[name=words]').val();
     var wordAnswers = $('input[name=wordAnswers]').val();
-    var numberOfQuestion = $('input[name=numberOfQuestion]').val();
+
     var wordsJson = JSON.parse(words);
     var wordAnswersJson = JSON.parse(wordAnswers);
     var $wordIds = [];
     var $wordNames = [];
+    var arrayQuestionNotAnswer = [];
 
     /* before show question */
     $('.result').html("");
@@ -41,80 +65,90 @@ function showQuestion(number) {
     /*init html text*/
     var html = "<h3><b><i>" + $wordName + "</i></b></h3><hr>" +
         "<div class='form-group'>";
+    var htmlMiss = "";
+    currentNumberOfQuestion = number + 1;
+    handleProgress();
 
     /* Select answer */
     for(var i = 0; i < wordAnswersJson.length; i++) {
         if (wordAnswersJson[i].word_id == $wordId) {
-            html += "<label class='answer' id='" + wordAnswersJson[i].id + "'>";
-            html += "<input type='radio' name='answer' value='" + wordAnswersJson[i].id + "'>  " + wordAnswersJson[i].content + "</label><br>"
+            html += "<label>";
+            html += "<input type='radio'" + ((isChoose.indexOf(wordAnswersJson[i].id) == -1) ? '' : 'checked') + " id='" +
+                wordAnswersJson[i].id + "'  name='answer' value='" + wordAnswersJson[i].id + "' onclick='saveAnswer("+ number + ","+ $wordId +")'>" +
+                "  " + wordAnswersJson[i].content + "</label><br>"
         }
     }
 
     html += "</div>";
     html += "<hr>";
-    html += "<button class = 'btn btn-success submit' onclick = 'check(" + number +")'>Submit</button>";
+    html += "<div class='btn-group'>";
 
-    /* Button next */
-    if(number < numberOfQuestion && isFinish.indexOf(number + 1) == -1) {
-        html += "<button class = 'btn btn-primary' onclick='showQuestion(" + (number + 1) + ")'>Next</button>";
-    } else {
-        for (i = 0; i < number; i++) {
-            if(isFinish.indexOf(i) == -1) {
-                var tmp = number;
-                number = i;
-                i = tmp;
-            }
-        }
-
-        if(number < numberOfQuestion) {
-            html += "<button class = 'btn btn-primary' onclick='showQuestion(" + number + ")'>Next</button>";
+    /* Button previous */
+    if (number > 0) {
+        if (number - 1 >= 0) {
+            html += "<button class = 'btn btn-primary btn-previous' id='"+ number +"' onclick='showQuestion(" + (number - 1) + ")'>" +
+                messageRtn.button_previous + "</button>";
+        } else {
+            html += "<button class = 'btn btn-primary btn-previous' id='"+ number +"' onclick='showQuestion(" + (number) + ")'>" +
+                messageRtn.button_previous + "</button>";
         }
     }
 
-    html += "<input type='hidden' name='word' value='" + $wordId +"'>";
+    /* Button next */
+    if (number < numberOfQuestion && number + 1 < numberOfQuestion) {
+        html += "<button class = 'btn btn-primary btn-next' id='"+ number +"' onclick='showQuestion(" + (number + 1) + ")'>" +
+            messageRtn.btn_next + "</button>";
+    }
+    for (var index = 0; index < number; index++) {
+        if (isFinish.indexOf(index) == -1 && arrayQuestionNotAnswer.indexOf(index) == -1) {
+            arrayQuestionNotAnswer.push(index);
+        }
+    }
+
+    if (arrayQuestionNotAnswer.length > 5) {
+        for (var index = 0; index < 5; index++) {
+            htmlMiss += "<button class = 'btn btn-primary btn-xs btn-miss' id='"+ arrayQuestionNotAnswer[index] +"' onclick='showQuestion(" + (arrayQuestionNotAnswer[index]) + ")'>" +
+                messageRtn.btn_next + "<span class='badge'>" + (arrayQuestionNotAnswer[index] + 1) + "</span></button>";
+        }
+    } else {
+        for (var index = 0; index < arrayQuestionNotAnswer.length; index++) {
+            htmlMiss += "<button class = 'btn btn-primary btn-xs btn-miss' id='"+ arrayQuestionNotAnswer[index] +"' onclick='showQuestion(" + (arrayQuestionNotAnswer[index]) + ")'>" +
+                messageRtn.btn_next + "<span class='badge'>" + (arrayQuestionNotAnswer[index] + 1) + "</span></button>";
+        }
+    }
+
+    html += "</div>";
     $('#question').html(html);
+    $('#question-miss').html(htmlMiss);
 }
 
-function check(number) {
+function handleProgress() {
+    $( "#progeessdetail" ).html(messageRtn.progress_lesson +
+        " <span class='badge'>" + currentNumberOfQuestion + "/" + numberOfQuestion + "</span>");
+}
 
-    $('.answer').find('span').remove();
-    $('.submit').attr("disabled", true);
-    isFinish.push(number);
+function submitLesson() {
+    $('.btn-previous').attr("disabled", true);
+    $('.btn-next').attr("disabled", true);
+    $('.btn-miss').attr("disabled", true);
     $.ajax({
         url: $('input[name=route]').val(),
         type: 'post',
         data: {
-            'choice': $('input[name=answer]:checked').val(),
+            'questions': wordQuestions,
             '_token': $('input[name=_token]').val(),
-            'word': $('input[name=word]').val()
+            'answers': isChoose,
+            'lessonId' : lessonId
         },
         success: function (data) {
-            var html = "";
-            var messageRtn = JSON.parse($('input[name=message]').val());
             if (data.success == false) {
-                html = "<div class='alert alert-danger'>" + messageRtn.user_not_answer + "</div>";
-                $('.submit').attr("disabled", false);
+                html = "<div class='alert alert-danger'>" + messageRtn.score_fail + "</div>";
+                $('.result').html(html);
             } else {
-                var dataRtn = data.dataResult;
-                if (dataRtn.length == 1) {
-                    var idResult = dataRtn[0].id;
-                    var idChoice = $('input[name=answer]:checked').val();
-                    if (idResult == idChoice) {
-                        $('#' + idChoice).append("   <span class='glyphicon glyphicon-ok correct'></span>");
-                        html = "<label>" + messageRtn.answer_correct + "</label>";
-                    } else {
-                        $('#' + idChoice).append("   <span class='glyphicon glyphicon-remove incorrect'></span>");
-                        html = "<label>" + messageRtn.answer_incorrect + "</label><br>" +
-                            "<label>" + messageRtn.confirm_view_result + "<button class='btn btn-primary btn-xs' onClick='showResult(" + idResult + ")'>" +
-                            messageRtn.button_view_result + "</button></label>";
-                    }
-                } else {
-                    html = "<div class='alert alert-info'>" + messageRtn.question_not_answer + "</div>";
-                }
+                window.location.href = routeResult;
             }
-
-            $('.result').html(html);
         }
     });
 }
+
 

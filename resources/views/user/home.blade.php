@@ -3,7 +3,7 @@
     {{ trans('client/home/names.home.title_home_client') }}
 @endsection
 @section('content')
-    <div class="row">
+    <div class="row" id="home">
         <div class="col-lg-4">
             <img src="{{asset(config('common.user.path.avatar_url') . $user->avatar)}}" id="avatar-user" width="150px" height="150px"><br>
             <label class="infor-user">{{ $user->name }}</label><br>

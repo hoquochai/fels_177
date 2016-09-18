@@ -16,6 +16,6 @@ return [
         'heading_panel_word_list_filter' => 'All words',
         'heading_panel_word_filter_result' => 'Filter result',
         'header_pdf_file' => '<h1 style="text-align: center">List words</h1>',
-        'content_pdf_file' => '<li>:words</li>',
+        'content_pdf_file' => '<li>:words: :wordAnswers</li>',
     ],
 ];

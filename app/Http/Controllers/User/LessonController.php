@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Events\Log;
 use App\Models\Lesson;
+use App\Models\LessonResult;
 use App\Models\LessonWord;
 use App\Models\UserWord;
 use App\Models\Word;
@@ -35,40 +36,54 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->only('word', 'choice');
-        $condition = [
-            'word_id' => $input['word'],
-            'correct' => config('common.word_answer.correct.result_true'),
-        ];
-        if ($request->ajax() && !is_null($input['choice'])) {
-            $wordTrues = WordAnswer::where($condition)->get();
-            if ($wordTrues->count()) {
-                $id = auth()->user()->id;
-                foreach ($wordTrues as $wordTrue) {
-                    if ($wordTrue->id == $input['choice']) {
-                        $data = [
-                            'user_id' => $id,
-                            'word_id' => $input['word'],
-                        ];
+        $score = config('common.result.default_score');
+        $input = $request->only('questions', 'answers', 'lessonId');
+        $userId = auth()->user()->id;
+        $userWordDatas = [];
+        if ($request->ajax()) {
+            if (count($input['questions'])) {
+                $wordTrues = WordAnswer::whereIn('word_id', $input['questions'])
+                    ->where('correct', config('common.word_answer.correct.result_true'))->pluck('id', 'word_id');;
+                for ($i = 0; $i < count($input['questions']); $i++) {
+                    if ($input['answers'][$i] == $wordTrues[$input['questions'][$i]]) {
+                        $userWordDatas = array_prepend($userWordDatas, [
+                            'user_id' => $userId,
+                            'word_id' => $input['questions'][$i],
+                        ]);
+                        $score ++;
                     }
-                }
-
-                if (isset($data)) {
-                    UserWord::firstOrCreate($data);
                 }
             }
 
-            $result = [
-                'success' => true,
-                'dataResult' => $wordTrues,
-            ];
-        } else {
-            $result = [
-                'success' => false,
-            ];
+            try {
+                DB::beginTransaction();
+                LessonResult::firstOrCreate([
+                    'user_id' => auth()->user()->id,
+                    'lesson_id' => $input['lessonId'],
+                    'result' => $score,
+                ]);
+
+                if (count($input['questions'])) {
+                    $query = 'insert into user_words (user_id, word_id) values ';
+                    foreach ($userWordDatas as $userWordData) {
+                        $query .= "('" . $userWordData['user_id'] . "','" . $userWordData['word_id'] . "'),";
+                    }
+
+                    $query = substr($query, 0, strlen($query) - 1);
+                    DB::insert($query);
+                }
+
+                DB::commit();
+                $data = ['success' => 'true'];
+            } catch (Exception $ex) {
+                DB::rollBack();
+                $data = ['success' => 'false'];
+            }
+
         }
 
-        return response()->json($result);
+
+        return response()->json($data);
     }
 
     /**
@@ -89,10 +104,22 @@ class LessonController extends Controller
             'answer_correct' => trans('client/lesson/messages.lesson.answer_correct'),
             'confirm_view_result' => trans('client/lesson/messages.lesson.confirm_view_result'),
             'button_view_result' => trans('names.button.button_view_result'),
+            'progress_lesson' => trans('client/lesson/names.lesson.progress _lesson'),
+            'btn_submit' => trans('names.button.button_submit'),
+            'btn_next' => trans('names.button.button_next'),
+            'btn_finish' => trans('names.button.button_finish'),
+            'score_fail' => trans('client/lesson/messages.lesson.score_fail'),
+            'button_previous' => trans('names.button.button_previous'),
         ]);
+        $idWordUserLearned = UserWord::where('user_id', $user->id)->pluck('word_id');
+        $numberOfWord = Word::where('category_id', $id)->whereNotIn('id', $idWordUserLearned)->count();
+        if ($numberOfWord < $numberOfQuestion) {
+            $message = trans('client/lesson/messages.lesson.missing_words');
+            return redirect()->route('category.index')->with('message', $message);
+        }
+
         $numberOfLesson = Lesson::where('category_id', $id)->count();
         $lessonName = trans('client/lesson/names.lesson.name_lesson', ['lessonNumbers' => $numberOfLesson + 1]);
-        $idWordUserLearned = UserWord::where('user_id', $user->id)->pluck('id');
         $words = Word::inRandomOrder()->where('category_id', $id)->whereNotIn('id', $idWordUserLearned)->take($numberOfQuestion)->pluck('content', 'id')->toArray();
         list($idWords, $nameWords) = array_divide($words);
         if (count($idWords) == 0) {
@@ -108,15 +135,22 @@ class LessonController extends Controller
                 'category_id' => $id,
                 'name' => $lessonName,
             ];
-            $lessionID = Lesson::firstOrCreate($lesson)->id;
+            $lessonId = Lesson::firstOrCreate($lesson)->id;
+            $lessonWords = [];
             foreach ($idWords as $idWord) {
-                $lessonWord = [
-                    'lesson_id' => $lessionID,
+                $lessonWords = array_prepend($lessonWords,[
+                    'lesson_id' => $lessonId,
                     'word_id' => $idWord,
-                ];
-                LessonWord::firstOrCreate($lessonWord);
+                ]);
             }
 
+            $query = 'insert into lesson_words (lesson_id, word_id) values ';
+            foreach ($lessonWords as $lessonWord) {
+                $query .= "('" . $lessonWord['lesson_id'] . "','" . $lessonWord['word_id'] . "'),";
+            }
+
+            $query = substr($query, 0, strlen($query) - 1);
+            DB::insert($query);
             event(new Log($id, config('common.activity.activity_learning')));
             DB::commit();
         } catch (Exception $ex) {
@@ -127,6 +161,6 @@ class LessonController extends Controller
 
         $words = json_encode($words);
         $wordAnswers = json_encode($wordAnswers);
-        return view('user.lesson', compact('words', 'wordAnswers', 'id', 'messageLesson', 'lessonName', 'numberOfQuestion'));
+        return view('user.lesson', compact('words', 'wordAnswers', 'id', 'messageLesson', 'lessonName', 'numberOfQuestion', 'lessonId'));
     }
 }

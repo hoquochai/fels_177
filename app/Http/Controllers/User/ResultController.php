@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Lesson;
+use App\Models\LessonResult;
 use App\Models\LessonWord;
 use App\Models\UserWord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Exception;
 
 class ResultController extends Controller
 {
@@ -38,8 +40,8 @@ class ResultController extends Controller
             'sign_incorrect' => trans('client/result/names.result.sign_incorrect'),
         ]);
         $sortStyle = config('common.sort.sort_descending');
-        $lessons = Lesson::with('category')->orderBy('id', $sortStyle)->paginate(10);
-        return view('user.result', compact('lessons', 'messageLesson'));
+        $lessonResults = LessonResult::with('lesson.category')->orderBy('lesson_id', $sortStyle)->paginate(10);
+        return view('user.result', compact('lessonResults', 'messageLesson'));
     }
 
     /**
@@ -64,6 +66,34 @@ class ResultController extends Controller
                 'result' => true,
                 'lessonWords' => $lessonWords,
                 'userWords' => $userWords,
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $point = $request->point;
+        try {
+            LessonResult::firstOrCreate([
+                'user_id' => auth()->user()->id,
+                'lesson_id' => $id,
+                'result' => $point,
+            ]);
+            $data = [
+                'success' => true,
+            ];
+        } catch (Exception $ex) {
+            $data = [
+                'success' => false,
             ];
         }
 

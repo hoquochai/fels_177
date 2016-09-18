@@ -17,6 +17,7 @@ return [
         'action_head_name' => 'Action',
         'result_head_name' => 'Result',
         'word_head_name' => 'Word',
+        'score_head_name' => 'Score',
         'word_answer_head_name' => 'Word answer',
     ],
 ];
