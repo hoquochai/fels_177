@@ -35,6 +35,10 @@ return [
         'button_pdf' => 'PDF',
         'button_word_list' => 'Words',
         'button_lesson' => 'Lesson',
+        'button_view_lesson' => 'View',
+        'button_finish' => 'Finish',
+        'button_previous' => 'Previous',
+        'button_speak' => 'Speak',
     ],
     'times' => [
         'create_at_time' => 'Created at',

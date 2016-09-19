@@ -1,5 +1,11 @@
+#body {
+  background: rgba(220, 220, 220, 0.47);
+}
+
 #content {
-  margin-top: 100px;
+  margin-top: 70px;
+  background: white;
+  padding: 15px;
 }
 
 #activity {
@@ -18,17 +24,11 @@
 }
 
 #user-list {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
-.correct {
-  color: green;
-  font-size: 30px;
-}
-
-.incorrect {
-  color: red;
-  font-size: 30px;
+#row-question-miss {
+  float: right;
 }
 
 #all-word-box, #filter-result-box {

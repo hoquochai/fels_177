@@ -46,8 +46,8 @@
 </nav>
 
 <!--Content-->
-<div class="container-fluid">
-    @include('admin.error');
+<div class="container-fluid" id="body">
+    @include('admin.error')
     <div class="col-lg-9">
         <div class="row" id="content">
             @yield('content')
@@ -69,5 +69,11 @@
 
 <!-- Word list JavaScript -->
 <script src="{{ asset('/js/user/word-list.js') }}"></script>
+
+<!-- Result JavaScript -->
+<script src="{{ asset('/js/user/result.js') }}"></script>
+
+<!-- Speak JavaScript -->
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 </body>
 </html>

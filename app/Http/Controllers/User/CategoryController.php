@@ -27,4 +27,20 @@ class CategoryController extends Controller
         $categories = Category::paginate($numberRecord);
         return view('user.category', compact('categories'));
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        $numberRecord = config('common.category.pagination.default_number_record_category');
+        $search = $request->search;
+        $categories = Category::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('introduction', 'LIKE', '%' . $search . '%')->paginate($numberRecord);
+        return view('user.category', compact('categories', 'search'));
+    }
 }
