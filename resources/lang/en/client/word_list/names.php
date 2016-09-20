@@ -15,7 +15,7 @@ return [
         'label_word_all_filter' =>'All',
         'heading_panel_word_list_filter' => 'All words',
         'heading_panel_word_filter_result' => 'Filter result',
-        'header_pdf_file' => '<h1 style="text-align: center">List words</h1>',
-        'content_pdf_file' => '<li>:words: :wordAnswers</li>',
+        'header_pdf_file' => 'List words',
+        'content_pdf_file' => ':words: :wordAnswers',
     ],
 ];

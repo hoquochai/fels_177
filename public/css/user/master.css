@@ -1,0 +1,49 @@
+#body {
+  background: rgba(220, 220, 220, 0.47);
+}
+
+#content {
+  margin-top: 70px;
+  background: white;
+  padding: 15px;
+}
+
+#activity {
+  border-left: 1px solid gainsboro;
+  min-height: 500px;
+}
+
+#avatar-user {
+  display: block;
+  margin: 0 auto;
+}
+
+.infor-user {
+  display: block;
+  text-align: center;
+}
+
+#user-list {
+  margin-top: 70px;
+}
+
+#row-question-miss {
+  float: right;
+}
+
+#all-word-box, #filter-result-box {
+  min-height: 500px;
+}
+
+#resultPfd {
+  text-align: center;
+}
+
+#result {
+  min-height: 500px;
+}
+
+#title-body-result {
+  border-bottom: 1px solid black;
+  width: 210px;
+}

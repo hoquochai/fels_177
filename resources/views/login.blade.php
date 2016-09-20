@@ -54,16 +54,16 @@
         </div>
     </div>
 <!-- jQuery -->
-<script src="{{ asset('/bower/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('bower/jquery/dist/jquery.min.js') }}"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('/bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 <!-- jQuery Datatable JavaScript -->
-<script src="{{ asset('/bower/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 
 <!-- Bootstrap Datatable JavaScript -->
-<script src="{{ asset('/bower/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('bower/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
 </body>
 </html>

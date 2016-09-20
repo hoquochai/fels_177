@@ -1,0 +1,76 @@
+#content {
+  margin-top: 50px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#header {
+  background: gainsboro;
+  padding-left: 20px;
+}
+
+#menu {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+    height: auto;
+    max-height: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+    width: auto !important;
+  }
+  .navbar-collapse.in {
+    overflow-x: visible;
+  }
+
+  .navbar {
+    border-radius: 0 !important;
+    max-width: 200px;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    min-height: 1500px;
+  }
+
+  .navbar-nav,
+  .navbar-nav > li,
+  .navbar-left,
+  .navbar-right,
+  .navbar-header {
+    float: none !important;
+  }
+
+  .navbar-right .dropdown-menu {
+    left: 0;
+    right: auto;
+  }
+  .navbar-collapse .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+  }
+}
+
+#footer {
+  background: gainsboro;
+  color: black;
+  clear: both;
+  padding: 30px 50px;
+}
+
+.word-answer-correct {
+  background: gainsboro;
+}
+
+.component {
+  margin-top: 50px;
+}

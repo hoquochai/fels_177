@@ -59,19 +59,19 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ asset('/bower/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('bower/jquery/dist/jquery.min.js') }}"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('/bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 <!-- Lesson JavaScript -->
-<script src="{{ asset('/js/user/lesson.js') }}"></script>
+<script src="{{ asset('js/user/lesson.js') }}"></script>
 
 <!-- Word list JavaScript -->
-<script src="{{ asset('/js/user/word-list.js') }}"></script>
+<script src="{{ asset('js/user/word-list.js') }}"></script>
 
 <!-- Result JavaScript -->
-<script src="{{ asset('/js/user/result.js') }}"></script>
+<script src="{{ asset('js/user/result.js') }}"></script>
 
 <!-- Speak JavaScript -->
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>

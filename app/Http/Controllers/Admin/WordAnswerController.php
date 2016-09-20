@@ -98,14 +98,19 @@ class WordAnswerController extends Controller
      */
     public function update(WordAnswerRequest $request, $id)
     {
+        $input = $request->only('word_id', 'content', 'correct');
         $wordAnswer = WordAnswer::findOrFail($id);
         $config = config('common.word_answer.correct');
         $checkIsCorrect = [
             'word_id' => $request->word_id,
             'correct' => $config['result_true'],
+
         ];
-        WordAnswer::where($checkIsCorrect)->update(['correct' => $config['result_false']]);
-        $input = $request->only('word_id', 'content', 'correct');
+        if ($wordAnswer->correct != $input['correct']) {
+            WordAnswer::where($checkIsCorrect)->Where('id', '<>', $wordAnswer->id)
+                ->update(['correct' => $config['result_false']]);
+        }
+
         $wordAnswer->update($input);
         $message = trans('word_answer/messages.success.update_word_answer_success');
         return redirect()->route('admin.word_answer.index')->with('message', $message);

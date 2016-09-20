@@ -1,0 +1,12 @@
+#head-login {
+  background: gainsboro;
+  box-shadow: 2px 2px 5px #8c8888;;
+}
+
+#login {
+  margin-top: 100px;
+}
+
+#login .panel-heading {
+  text-align: center;
+}

@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Admin',
             'password' => '123456',
             'avatar' => config('common.user.path.default_name_avatar'),
-            'roles' => config('roles.admin'),
+            'roles' => config('roles.user'),
         ]);
         for ($i = 0; $i < 20; $i++) {
             User::create([

@@ -26,7 +26,7 @@ class UserCreateRequest extends FormRequest
         $config = config('common.user');
         return [
             'name' => 'required|max:' . $config['length']['user_name_length'],
-            'email' => 'required|email|max:' . $config['length']['user_email_length'] . '|unique:users,email,deleted_at',
+            'email' => 'required|email|max:' . $config['length']['user_email_length'] . '|unique:users,email,NULL,NULL,deleted_at,NULL',
             'password' => 'max:' . $config['length']['user_password_length'] . '|required',
             'avatar' => 'file|image|max:' . $config['file']['avatar_max_size'],
         ];
