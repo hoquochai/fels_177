@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Lesson;
+use App\Models\LessonResult;
+use App\Models\LessonWord;
+use App\Models\Word;
+use App\Models\WordAnswer;
 use File;
 use DB;
 use Exception;
@@ -165,7 +170,12 @@ class CategoryController extends Controller
                 }
             }
 
+            $lesson = Lesson::where('category_id', $category->id)->pluck('id');
+            LessonWord::whereIn('lesson_id', $lesson)->delete();
+            LessonResult::whereIn('lesson_id', $lesson)->delete();
             $category->lessons()->delete();
+            $words = Word::where('category_id', $category->id)->pluck('id');
+            WordAnswer::whereIn('word_id', $words)->delete();
             $category->words()->delete();
             $category->delete();
             DB::commit();

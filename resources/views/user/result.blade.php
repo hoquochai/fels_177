@@ -9,7 +9,6 @@
         </div>
     @endif
     @if ($lessonResults->count())
-
         <div class="hide-result" data-route-result ="{{ route('result.index') }}"
              data-token = "{{ csrf_token() }}"
              data-route = "{{ route('result.store') }}"

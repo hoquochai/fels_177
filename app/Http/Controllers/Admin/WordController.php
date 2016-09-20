@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\LessonWord;
+use App\Models\UserWord;
 use App\Models\Word;
 use App\Http\Requests\WordRequest;
 use App\Http\Controllers\Controller;
@@ -110,6 +112,8 @@ class WordController extends Controller
         $word = Word::findOrFail($id);
         try {
             DB::beginTransaction();
+            UserWord::where('word_id', $word->id)->delete();
+            LessonWord::where('word_id', $word->id)->delete();
             $word->wordAnswers()->delete();
             $word->delete();
             DB::commit();
