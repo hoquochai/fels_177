@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
+use App\Models\Activity;
+use App\Models\Relationship;
 use App\Models\User;
 use File;
 use DB;
@@ -170,6 +172,8 @@ class UserController extends Controller
             }
 
             $user->lessonResults()->delete();
+            Activity::where('user_id', $user->id)->delete();
+            Relationship::where('follower_id', $user->id)->orWhere('following_id', $user->id)->delete();
             $user->userWords()->delete();
             $user->delete();
             DB::commit();
